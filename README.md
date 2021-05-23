@@ -1,7 +1,7 @@
 # APCSFinalProject
 Group Name
 ---
-IllegalSkillsException
+Puyo Poppers
 
 Members
 ---
