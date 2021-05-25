@@ -6,3 +6,7 @@ static class Puyo {
   static final int YELLOW = 4;
   static final int PURPLE = 5;
 }
+
+int randomPuyo() {
+  return (int)(random(1, 6));
+}
