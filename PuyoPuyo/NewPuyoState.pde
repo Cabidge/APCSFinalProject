@@ -38,11 +38,11 @@ class NewPuyoState extends State {
     switch (key) {
       case 'z':
       case 'Z':
-        // CCW
+        rotate(-1);
         break;
       case 'x':
       case 'X':
-        // CW
+        rotate(1);
         break;
     }
   }
@@ -93,6 +93,25 @@ class NewPuyoState extends State {
     float constrainedY = ceil(pivotY + amount - 1);
     if (constrainedY > pivotY) {
       pivotY = constrainedY;
+      return true;
+    }
+    
+    return false;
+  }
+  
+  /**
+   * Rotates the minor Puyo around the pivot Puyo.
+   * -1 is counter clockwise, 1 is clockwise.
+   * @returns if the rotation was successful or not.
+   */
+  boolean rotate(int dir) {
+    // 90 degree rotation transformation from geometry!
+    int newMinorY = minorX * dir;
+    int newMinorX = minorY * dir;
+    
+    if (isEmptyTile(pivotX + newMinorX, pivotY + newMinorY)) {
+      minorX = newMinorX;
+      minorY = newMinorY;
       return true;
     }
     
