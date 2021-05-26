@@ -23,6 +23,7 @@ class Game {
   
   Game() {
     reset();
+    paused = false;
   }
   
   void reset() {
@@ -33,7 +34,9 @@ class Game {
   }
   
   void update() {
-    state.onUpdate((millis()-pmillis)/1000.0);
+    if (!paused) {
+      state.onUpdate((millis()-pmillis)/1000.0);
+    }
     pmillis = millis();
   }
   
@@ -56,8 +59,19 @@ class Game {
     line(755,55,820,120);
     line(820,55,755,120);
     
+    if (paused) {
+      textSize(80);
+      text("PAUSED" , 100, 200);
+    }
   }
   
+  void keyPressed() {
+    if ( key == 'p' ) {
+      paused = !paused;
+    } else {
+      state.onKeyPressed();
+    }
+  }
   
   void displayPuyo(int type, float x, float y) {
     displayPuyo(type, x, y, 1);
@@ -91,10 +105,6 @@ class Game {
     fill(255,255,255);
     ellipse(x*puyoSize+620, y*puyoSize+75, puyoSize/3, puyoSize/3);
     ellipse(x*puyoSize+655, y*puyoSize+75, puyoSize/3, puyoSize/3);
-  }
-  
-  void keyPressed() {
-    state.keyPressed();
   }
 
   void displayScore(){

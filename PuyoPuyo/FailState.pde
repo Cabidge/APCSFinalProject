@@ -11,7 +11,7 @@ class FailState extends State {
     text("Press 'R' to restart", 100, 100);
   }
   
-  void onKeyPressed() {
+  void keyPressed() {
     if (key == 'r' || key == 'R') {
       game.reset();
     }
