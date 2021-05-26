@@ -22,11 +22,7 @@ class Game {
   int pmillis;
   
   Game() {
-    reset();
     paused = false;
-  }
-  
-  void reset() {
     state = new NewPuyoState(this);
     board = new int[HEIGHT][WIDTH];
     score = 0;

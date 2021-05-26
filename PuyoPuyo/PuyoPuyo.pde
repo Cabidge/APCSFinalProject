@@ -12,5 +12,9 @@ void draw() {
 }
 
 void keyPressed() {
-  game.keyPressed();
+  if (key == 'r' || key == 'R') {
+    game = new Game();
+  } else {
+    game.keyPressed();
+  }
 }

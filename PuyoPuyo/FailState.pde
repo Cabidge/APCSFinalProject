@@ -3,17 +3,9 @@ class FailState extends State {
     super(game);
   }
   
-  void onUpdate(float delta) {
-    
-  }
+  void onUpdate(float delta) { }
   
   void onDisplay() {
     text("Press 'R' to restart", 100, 100);
-  }
-  
-  void keyPressed() {
-    if (key == 'r' || key == 'R') {
-      game.reset();
-    }
   }
 }
