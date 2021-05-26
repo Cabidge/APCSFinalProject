@@ -18,10 +18,10 @@ https://docs.google.com/document/d/114oYsp2H10wIld0sRy-pdgXkgXjDXGaXQkoOZuJiFNY/
 # Development Log
 ## 5/24
 ### Wen Hao Dong
-Created the skeletal code (all of the classes, methods, and necessary variables) and implemented the FallingState. 
+Created the skeletal code (all of the classes, methods, and necessary variables) and implemented the FallingState. (class time)
 
 ### Tristan Pragnell
 ...
 
 ## 5/25
-...
+Implemented the NewPuyoState. (~30 minutes)
