@@ -5,7 +5,10 @@ abstract class State {
     this.game = game;
   }
   
-  abstract void onUpdate();
+  /**
+   * @param delta the number of seconds since the last onUpdate call.
+   */
+  abstract void onUpdate(double delta);
   abstract void onDisplay();
   
   void onKeyPressed() { }

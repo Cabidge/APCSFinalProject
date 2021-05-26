@@ -3,7 +3,7 @@ class FallingState extends State {
     super(game);
   }
   
-  void onUpdate() {
+  void onUpdate(double delta) {
     if (!induceGravity()) {
       game.state = new PoppingState(game);
     }

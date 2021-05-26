@@ -10,6 +10,8 @@ class NewPuyoState extends State {
   // [0] = pivot, [1] = minor
   private int[] pairTypes;
   
+  private int pmillis;
+  
   NewPuyoState(Game game) {
     super(game); //<>//
     
@@ -20,9 +22,11 @@ class NewPuyoState extends State {
     minorY = -1;
     
     pairTypes = new int[]{randomPuyo(), randomPuyo()};
+    
+    pmillis = millis();
   }
   
-  void onUpdate() {
+  void onUpdate(double delta) {
     handleLateralMovement();
     if (!moveDown(0.1)) {
       finalizePair();

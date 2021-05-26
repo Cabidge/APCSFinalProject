@@ -3,7 +3,7 @@ class PoppingState extends State {
     super(game);
   }
   
-  void onUpdate() {
+  void onUpdate(double delta) {
     game.state = new NewPuyoState(game);
   }
   
