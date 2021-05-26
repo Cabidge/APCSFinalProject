@@ -24,4 +24,5 @@ Created the skeletal code (all of the classes, methods, and necessary variables)
 ...
 
 ## 5/25
+### Wen Hao Dong
 Implemented the NewPuyoState. (~30 minutes)
