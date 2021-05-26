@@ -39,29 +39,33 @@ class Game {
     //Draw grid
     for (int x=0; x<WIDTH; x++) {
       for (int y=0; y<HEIGHT; y++) {
-        switch (board[y][x]) {
-          default:
-            fill(NONE);
-            break;
-          case Puyo.RED:
-            fill(RED);
-            break;
-          case Puyo.BLUE:
-            fill(BLUE);
-            break;
-          case Puyo.GREEN:
-            fill(GREEN);
-            break;
-          case Puyo.YELLOW:
-            fill(YELLOW);
-            break;
-          case Puyo.PURPLE:
-            fill(PURPLE);
-            break;
-        }
-        rect (x*puyoSize+600, y*puyoSize+50, puyoSize, puyoSize);
+        displayPuyo(board[y][x], x, y);
       }
     }
+  }
+  
+  void displayPuyo(int type, float x, float y) {
+    switch (type) {
+      default:
+        fill(NONE);
+        break;
+      case Puyo.RED:
+        fill(RED);
+        break;
+      case Puyo.BLUE:
+        fill(BLUE);
+        break;
+      case Puyo.GREEN:
+        fill(GREEN);
+        break;
+      case Puyo.YELLOW:
+        fill(YELLOW);
+        break;
+      case Puyo.PURPLE:
+        fill(PURPLE);
+        break;
+    }
+    rect (x*puyoSize+600, y*puyoSize+50, puyoSize, puyoSize);
   }
   
   void keyPressed() {
