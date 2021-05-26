@@ -1,11 +1,23 @@
 class FallingState extends State {
+  // Number of seconds before each induceGravity call
+  static final float FALL_DELAY = 0.08;
+  float timeSinceFalling;
+  
   FallingState(Game game) {
     super(game);
+    
+    timeSinceFalling = 0.0;
   }
   
   void onUpdate(float delta) {
-    if (!induceGravity()) {
-      game.state = new PoppingState(game);
+    timeSinceFalling += delta;
+    
+    while (timeSinceFalling >= FALL_DELAY) {
+      if (!induceGravity()) {
+        game.state = new PoppingState(game);
+        return;
+      }
+      timeSinceFalling -= FALL_DELAY;
     }
   }
   
