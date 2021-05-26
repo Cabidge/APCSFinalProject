@@ -18,19 +18,23 @@ class Game {
   int[][] board;
   int score;
   
+  int pmillis;
+  
   Game() {
     state = new NewPuyoState(this);
     board = new int[HEIGHT][WIDTH];
     score = 0;
+    pmillis = millis();
   }
   
   void update() {
-    state.onUpdate();
+    state.onUpdate((millis()-pmillis)/1000.0);
+    pmillis = millis();
   }
   
   void display() {
     background(200);
-    text();
+    displayScore();
     rect(600, 50, 450, 900);
   
     rect(1200, 50, 200, 100);
@@ -70,5 +74,12 @@ class Game {
   
   void keyPressed() {
     state.onKeyPressed();
+  }
+  
+
+  void displayScore(){
+    fill(255);
+    textSize(32);
+    text("SCORE", 1200, 40);
   }
 }
