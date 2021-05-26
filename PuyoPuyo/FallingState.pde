@@ -20,10 +20,10 @@ class FallingState extends State {
   boolean induceGravity() {
     boolean anyMoved = false;
     for (int row = Game.HEIGHT - 2; row >= 0; row--) {
-      for (int col = 0; col < Game.WIDTH; col ++) {
-        if (game.board[col+1][row] == Puyo.NONE) {
-          game.board[col+1][row] = game.board[col][row];
-          game.board[col][row] = Puyo.NONE;
+      for (int col = 0; col < Game.WIDTH; col++) {
+        if (game.board[row+1][col] == Puyo.NONE) {
+          game.board[row+1][col] = game.board[row][col];
+          game.board[row][col] = Puyo.NONE;
           anyMoved = true;
         }
       }
