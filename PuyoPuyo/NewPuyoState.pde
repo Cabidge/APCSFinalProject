@@ -26,7 +26,7 @@ class NewPuyoState extends State {
     pmillis = millis();
   }
   
-  void onUpdate(double delta) {
+  void onUpdate(float delta) {
     handleLateralMovement();
     if (!moveDown(0.1)) {
       finalizePair();

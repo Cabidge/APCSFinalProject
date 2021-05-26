@@ -8,7 +8,7 @@ abstract class State {
   /**
    * @param delta the number of seconds since the last onUpdate call.
    */
-  abstract void onUpdate(double delta);
+  abstract void onUpdate(float delta);
   abstract void onDisplay();
   
   void onKeyPressed() { }

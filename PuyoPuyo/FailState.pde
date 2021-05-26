@@ -3,7 +3,7 @@ class FailState extends State {
     super(game);
   }
   
-  void onUpdate(double delta) {
+  void onUpdate(float delta) {
     
   }
   
