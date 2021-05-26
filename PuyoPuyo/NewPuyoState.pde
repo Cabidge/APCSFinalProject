@@ -107,7 +107,7 @@ class NewPuyoState extends State {
   boolean rotate(int dir) {
     // 90 degree rotation transformation from geometry!
     int newMinorY = minorX * dir;
-    int newMinorX = minorY * dir;
+    int newMinorX = minorY * -dir;
     
     if (isEmptyTile(pivotX + newMinorX, pivotY + newMinorY)) {
       minorX = newMinorX;
