@@ -1,5 +1,6 @@
 class NewPuyoState extends State {
-  static final float IDLE_FALL_SPEED = 2;
+  static final float IDLE_FALL_SPEED = 0.8;
+  static final float MAX_FALL_SPEED = 10;
   
   // Pivot location
   private int pivotX;
@@ -60,7 +61,7 @@ class NewPuyoState extends State {
   
   float fallSpeed() {
     if (keyPressed && keyCode == DOWN) {
-      return IDLE_FALL_SPEED * 6;
+      return MAX_FALL_SPEED;
     } else {
       return IDLE_FALL_SPEED;
     }
