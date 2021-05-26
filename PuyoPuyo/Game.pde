@@ -1,8 +1,18 @@
 class Game {
   static final int WIDTH = 6;
   static final int HEIGHT = 12;
-  static final int boardWidth = 450;
-  static final int boardHeight = 900;
+  
+  // Puyo display data
+  color NONE = color(255);
+  color RED = color(255,0,0);
+  color BLUE = color(0,0,255);
+  color GREEN = color(0,255,0);
+  color YELLOW = color(255,255,0);
+  color PURPLE = color(255,0,255);
+  static final int puyoSize = 75;
+  static final int boardWidth = puyoSize * WIDTH;
+  static final int boardHeight = puyoSize * HEIGHT;
+  
   State state;
   
   int[][] board;
@@ -10,7 +20,7 @@ class Game {
   
   Game() {
     state = new NewPuyoState(this);
-    board = new int[width/puyoSize][height/puyoSize];
+    board = new int[HEIGHT][WIDTH];
     score = 0;
   }
   
@@ -27,25 +37,27 @@ class Game {
     rect(1200, 50, 200, 100);
   
     //Draw grid
-    for (int x=0; x<6; x++) {
-      for (int y=0; y<12; y++) {
-        if (board[x][y]==0) {
-          fill(NONE); 
-        }
-        if (board[x][y]==1) {
-          fill(RED); 
-        }
-        if (board[x][y]==2) {
-          fill(BLUE); 
-        }
-        if (board[x][y]==3) {
-          fill(GREEN); 
-        }
-        if (board[x][y]==4) {
-          fill(YELLOW);
-        }
-        if (board[x][y]==5) {
-          fill(PURPLE);
+    for (int x=0; x<WIDTH; x++) {
+      for (int y=0; y<HEIGHT; y++) {
+        switch (board[y][x]) {
+          default:
+            fill(NONE);
+            break;
+          case Puyo.RED:
+            fill(RED);
+            break;
+          case Puyo.BLUE:
+            fill(BLUE);
+            break;
+          case Puyo.GREEN:
+            fill(GREEN);
+            break;
+          case Puyo.YELLOW:
+            fill(YELLOW);
+            break;
+          case Puyo.PURPLE:
+            fill(PURPLE);
+            break;
         }
         rect (x*puyoSize+600, y*puyoSize+50, puyoSize, puyoSize);
       }

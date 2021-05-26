@@ -126,7 +126,7 @@ class NewPuyoState extends State {
    */
   boolean isEmptyTile(int x, float y) {
     return x >= 0 && x < Game.WIDTH
-           && y >= 0 && y < Game.HEIGHT
+           && y >= 0 && ceil(y) < Game.HEIGHT
            && game.board[ceil(y)][x] == Puyo.NONE;
   }
 
