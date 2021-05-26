@@ -42,7 +42,7 @@ class Game {
     rect(600, 50, 450, 900);
   
     //rect(1200, 50, 200, 100);
-  
+    stroke(0,0,0);
     //Draw grid
     for (int x=0; x<WIDTH; x++) {
       for (int y=0; y<HEIGHT; y++) {
@@ -50,7 +50,13 @@ class Game {
       }
     }
     state.onDisplay();
+    strokeWeight(4);
+    stroke(255,0,0);
+    line(755,55,820,120);
+    line(820,55,755,120);
+    
   }
+  
   
   void displayPuyo(int type, float x, float y) {
     displayPuyo(type, x, y, 1);
@@ -92,4 +98,5 @@ class Game {
     text("SCORE", 1200, 80);
     text(score, 1200, 130);
   }
+  
 }
