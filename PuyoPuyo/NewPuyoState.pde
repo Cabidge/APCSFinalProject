@@ -13,6 +13,10 @@ class NewPuyoState extends State {
   // [0] = pivot, [1] = minor
   private int[] pairTypes;
   
+  // Time before pair is finalized
+  static final float FINALIZE_BUFFER = 0.5;
+  float timeSinceLanding;
+  
   NewPuyoState(Game game) {
     super(game); //<>//
     
@@ -23,11 +27,20 @@ class NewPuyoState extends State {
     minorY = -1;
     
     pairTypes = new int[]{randomPuyo(), randomPuyo()};
+    
+    timeSinceLanding = 0.0;
   }
   
   void onUpdate(float delta) {
     if (!moveDown(fallSpeed() * delta)) {
-      finalizePair();
+      if ((keyPressed && keyCode == DOWN)
+          || timeSinceLanding >= FINALIZE_BUFFER) {
+        finalizePair();
+      } else {
+        timeSinceLanding += delta;
+      }
+    } else {
+      timeSinceLanding = 0.0;
     }
   }
   
