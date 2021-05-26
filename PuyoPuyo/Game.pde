@@ -53,6 +53,10 @@ class Game {
   }
   
   void displayPuyo(int type, float x, float y) {
+    displayPuyo(type, x, y, 1);
+  }
+  
+  void displayPuyo(int type, float x, float y, float outlineThickness) {
     switch (type) {
       default:
         fill(NONE);
@@ -73,6 +77,7 @@ class Game {
         fill(PURPLE);
         break;
     }
+    strokeWeight(outlineThickness);
     rect (x*puyoSize+600, y*puyoSize+50, puyoSize, puyoSize);
   }
   

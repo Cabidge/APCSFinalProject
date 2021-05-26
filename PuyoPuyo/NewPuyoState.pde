@@ -45,8 +45,8 @@ class NewPuyoState extends State {
   }
   
   void onDisplay() {
-    game.displayPuyo(pairTypes[0], pivotX, pivotY);
     game.displayPuyo(pairTypes[1], pivotX+minorX, pivotY+minorY);
+    game.displayPuyo(pairTypes[0], pivotX, pivotY, 3);
   }
   
   void onKeyPressed() {
