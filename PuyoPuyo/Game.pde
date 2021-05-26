@@ -1,6 +1,7 @@
 class Game {
   static final int WIDTH = 6;
   static final int HEIGHT = 12;
+  boolean paused = false;
   
   // Puyo display data
   color NONE = color(255);
@@ -83,11 +84,26 @@ class Game {
         fill(PURPLE);
         break;
     }
+    stroke(0);
     strokeWeight(outlineThickness);
     rect (x*puyoSize+600, y*puyoSize+50, puyoSize, puyoSize);
+    stroke(255);
+    fill(255,255,255);
+    ellipse(x*puyoSize+620, y*puyoSize+75, puyoSize/3, puyoSize/3);
+    ellipse(x*puyoSize+655, y*puyoSize+75, puyoSize/3, puyoSize/3);
   }
   
   void keyPressed() {
+    if ( key == 'p' ) {
+      paused = !paused;
+      if (paused) {
+        noLoop();
+        textSize(80);
+        text("PAUSED" , 100, 200);
+      } else {
+        loop();
+      }
+    }
     state.onKeyPressed();
   }
 
