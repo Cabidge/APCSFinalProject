@@ -29,7 +29,6 @@ class Game {
   }
   
   void display() {
-    state.onDisplay();
     background(200);
     text();
     rect(600, 50, 450, 900);
@@ -42,6 +41,7 @@ class Game {
         displayPuyo(board[y][x], x, y);
       }
     }
+    state.onDisplay();
   }
   
   void displayPuyo(int type, float x, float y) {
