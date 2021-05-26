@@ -20,6 +20,8 @@ class PoppingState extends State {
     }
     if (anyPopped) {
       game.state = new FallingState(game);
+      game.score+= poppedGroup.size();
+      System.out.println(game.score);
     } else {
       game.state = new NewPuyoState(game);
     }

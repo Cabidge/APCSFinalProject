@@ -37,7 +37,7 @@ class Game {
     displayScore();
     rect(600, 50, 450, 900);
   
-    rect(1200, 50, 200, 100);
+    //rect(1200, 50, 200, 100);
   
     //Draw grid
     for (int x=0; x<WIDTH; x++) {
@@ -78,8 +78,10 @@ class Game {
   
 
   void displayScore(){
+    background(0);
     fill(255);
     textSize(32);
-    text("SCORE", 1200, 40);
+    text("SCORE", 1200, 80);
+    text(score, 1200, 130);
   }
 }
