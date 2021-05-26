@@ -7,17 +7,13 @@ color GREEN = color(0,255,0);
 color YELLOW = color(255,255,0);
 color PURPLE = color(255,0,255);
 int puyoSize = 75;
-int[][] cells;
-int boardWidth;
-int boardHeight;
+
 
 void setup() {
   game = new Game();
   frameRate(30);
   size(1920, 1080);
-  cells = new int[width/puyoSize][height/puyoSize];
-  boardWidth = 450;
-  boardHeight = 900;
+  
   
 }
   

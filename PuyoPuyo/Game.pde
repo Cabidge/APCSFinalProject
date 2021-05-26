@@ -1,6 +1,8 @@
 class Game {
   static final int WIDTH = 6;
   static final int HEIGHT = 12;
+  static final int boardWidth = 450;
+  static final int boardHeight = 900;
   State state;
   
   int[][] board;
@@ -8,7 +10,7 @@ class Game {
   
   Game() {
     state = new NewPuyoState(this);
-    board = new int[HEIGHT][WIDTH];
+    board = new int[width/puyoSize][height/puyoSize];
     score = 0;
   }
   
@@ -27,22 +29,22 @@ class Game {
     //Draw grid
     for (int x=0; x<6; x++) {
       for (int y=0; y<12; y++) {
-        if (cells[x][y]==0) {
+        if (board[x][y]==0) {
           fill(NONE); 
         }
-        if (cells[x][y]==1) {
+        if (board[x][y]==1) {
           fill(RED); 
         }
-        if (cells[x][y]==2) {
+        if (board[x][y]==2) {
           fill(BLUE); 
         }
-        if (cells[x][y]==3) {
+        if (board[x][y]==3) {
           fill(GREEN); 
         }
-        if (cells[x][y]==4) {
+        if (board[x][y]==4) {
           fill(YELLOW);
         }
-        if (cells[x][y]==5) {
+        if (board[x][y]==5) {
           fill(PURPLE);
         }
         rect (x*puyoSize+600, y*puyoSize+50, puyoSize, puyoSize);
