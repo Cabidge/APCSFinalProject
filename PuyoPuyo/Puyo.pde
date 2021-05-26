@@ -5,4 +5,5 @@ static class Puyo {
   static final int GREEN = 3;
   static final int YELLOW = 4;
   static final int PURPLE = 5;
+  
 }
