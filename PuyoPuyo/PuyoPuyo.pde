@@ -1,6 +1,6 @@
 Game game;
 
-color none = color(255);
+color NONE = color(255);
 color RED = color(255,0,0);
 color BLUE = color(0,0,255);
 color GREEN = color(0,255,0);
@@ -33,7 +33,7 @@ void draw() {
   for (int x=0; x<6; x++) {
     for (int y=0; y<12; y++) {
       if (cells[x][y]==0) {
-        fill(none); 
+        fill(NONE); 
       }
       if (cells[x][y]==1) {
         fill(RED); 
