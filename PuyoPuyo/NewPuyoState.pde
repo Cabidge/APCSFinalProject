@@ -1,4 +1,6 @@
 class NewPuyoState extends State {
+  static final float IDLE_FALL_SPEED = 2;
+  
   // Pivot location
   private int pivotX;
   private float pivotY; // Allows moving by half steps instead of only full tiles
@@ -10,8 +12,6 @@ class NewPuyoState extends State {
   // [0] = pivot, [1] = minor
   private int[] pairTypes;
   
-  private int pmillis;
-  
   NewPuyoState(Game game) {
     super(game); //<>//
     
@@ -22,13 +22,10 @@ class NewPuyoState extends State {
     minorY = -1;
     
     pairTypes = new int[]{randomPuyo(), randomPuyo()};
-    
-    pmillis = millis();
   }
   
   void onUpdate(float delta) {
-    handleLateralMovement();
-    if (!moveDown(0.1)) {
+    if (!moveDown(fallSpeed() * delta)) {
       finalizePair();
     }
   }
@@ -48,25 +45,25 @@ class NewPuyoState extends State {
       case 'X':
         rotate(1);
         break;
+      case CODED:
+        switch (keyCode) {
+          case LEFT:
+            updatePivot(-1, 0);
+            break;
+          case RIGHT:
+            updatePivot(1, 0);
+            break;
+        }
+        break;
     }
   }
   
-  void handleLateralMovement() {
-    if (!keyPressed) {
-      return;
+  float fallSpeed() {
+    if (keyPressed && keyCode == DOWN) {
+      return IDLE_FALL_SPEED * 6;
+    } else {
+      return IDLE_FALL_SPEED;
     }
-    
-    switch (keyCode) {
-        case LEFT:
-          updatePivot(-1, 0);
-          break;
-        case RIGHT:
-          updatePivot(1, 0);
-          break;
-        case DOWN:
-          moveDown(1);
-          break;
-      }
   }
 
   /**
