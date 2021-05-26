@@ -21,6 +21,10 @@ class Game {
   int pmillis;
   
   Game() {
+    reset();
+  }
+  
+  void reset() {
     state = new NewPuyoState(this);
     board = new int[HEIGHT][WIDTH];
     score = 0;
@@ -75,7 +79,6 @@ class Game {
   void keyPressed() {
     state.onKeyPressed();
   }
-  
 
   void displayScore(){
     fill(255);
