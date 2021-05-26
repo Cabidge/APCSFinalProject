@@ -1,5 +1,6 @@
 abstract class State {
   Game game;
+  boolean paused = false;
   
   State(Game game) {
     this.game = game;
@@ -11,5 +12,16 @@ abstract class State {
   abstract void onUpdate(float delta);
   abstract void onDisplay();
   
-  void onKeyPressed() { }
+  void keyPressed() {
+  if ( key == 'p' ) {
+      paused = !paused;
+      if (paused) {
+        noLoop();
+        textSize(80);
+        text("PAUSED" , 100, 200);
+      } else {
+        loop();
+      }
+    }
+  }
 }

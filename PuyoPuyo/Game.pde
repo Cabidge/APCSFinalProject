@@ -94,17 +94,7 @@ class Game {
   }
   
   void keyPressed() {
-    if ( key == 'p' ) {
-      paused = !paused;
-      if (paused) {
-        noLoop();
-        textSize(80);
-        text("PAUSED" , 100, 200);
-      } else {
-        loop();
-      }
-    }
-    state.onKeyPressed();
+    state.keyPressed();
   }
 
   void displayScore(){
