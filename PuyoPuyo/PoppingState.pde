@@ -70,8 +70,10 @@ class PoppingState extends State {
         game.board[pos[1]][pos[0]] = pType;
       }
       return false;
+    } else {
+      game.score += poppedGroup.size();
+      return true;
     }
-    return true;
   }
   
   void addPopped(int x, int y) {
