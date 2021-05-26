@@ -20,6 +20,8 @@ class PoppingState extends State {
     }
     if (anyPopped) {
       game.state = new FallingState(game);
+    } else if (game.board[1][2] != Puyo.NONE) {
+      game.state = new FailState(game);
     } else {
       game.state = new NewPuyoState(game);
     }
