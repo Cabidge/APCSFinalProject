@@ -140,11 +140,15 @@ class NewPuyoState extends State {
     }
     
     if (minorX == 0) { // was vertical
-      // Wall nudge
-      if (isEmptyTile(pivotX - newMinorX, pivotY)) {
+      if (isEmptyTile(pivotX - newMinorX, pivotY)) { // Wall nudge
         minorX = newMinorX;
         minorY = newMinorY;
         pivotX -= newMinorX;
+        stall();
+        return true;
+      } else { // Column flip
+        pivotY += minorY;
+        minorY = -minorY;
         stall();
         return true;
       }
