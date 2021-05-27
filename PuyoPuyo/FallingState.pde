@@ -3,9 +3,15 @@ class FallingState extends State {
   static final float FALL_DELAY = 0.08;
   float timeSinceFalling;
   
+  int currentChain;
+  
   FallingState(Game game) {
+    this(game, 0);
+  }
+  
+  FallingState(Game game, int currentChain) {
     super(game);
-    
+    this.currentChain = currentChain;
     timeSinceFalling = 0.0;
   }
   
@@ -14,7 +20,7 @@ class FallingState extends State {
     
     while (timeSinceFalling >= FALL_DELAY) {
       if (!induceGravity()) {
-        game.changeState(new PoppingState(game));
+        game.changeState(new PoppingState(game, currentChain));
         return;
       }
       timeSinceFalling -= FALL_DELAY;
@@ -22,7 +28,7 @@ class FallingState extends State {
   }
   
   void onDisplay() {
-    
+    game.displayChain(currentChain);
   }
   
   /**

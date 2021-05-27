@@ -121,6 +121,14 @@ class Game {
     text(score, 1200, 130);
   }
   
+  void displayChain(int chain) {
+    if (chain > 0) { 
+      fill(230,200,0); // Orange
+      textSize(30 + chain * 5);
+      text(chain + "-chain!", 1100, 420);
+    }
+  }
+  
   void changeState(State nextState) {
     state.onExit();
     

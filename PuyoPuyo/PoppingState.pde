@@ -5,8 +5,11 @@ class PoppingState extends State {
   Queue<int[]> frontier;
   List<int[]> poppedGroup;
   
-  PoppingState(Game game) {
+  int currentChain;
+  
+  PoppingState(Game game, int currentChain) {
     super(game);
+    this.currentChain = currentChain;
     frontier = new ArrayDeque<int[]>();
     poppedGroup = new ArrayList<int[]>();
   }
@@ -19,7 +22,7 @@ class PoppingState extends State {
       }
     }
     if (anyPopped) {
-      game.changeState(new FallingState(game));
+      game.changeState(new FallingState(game, currentChain + 1));
     } else if (game.board[1][2] != Puyo.NONE) {
       game.changeState(new FailState(game));
     } else {
