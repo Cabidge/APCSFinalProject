@@ -2,7 +2,7 @@ Game game;
 
 void setup() {
   game = new Game();
-  frameRate(30);
+  //frameRate(30);
   size(1920, 1080);
 }
 
