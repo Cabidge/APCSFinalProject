@@ -11,7 +11,7 @@ class PoppingState extends State {
     poppedGroup = new ArrayList<int[]>();
   }
   
-  void onUpdate(float delta) {
+  void onEnter() {
     boolean anyPopped = false;
     for (int row = 0; row < Game.HEIGHT; row++) {
       for (int col = 0; col < Game.WIDTH; col++) {
