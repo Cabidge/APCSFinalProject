@@ -148,8 +148,12 @@ class NewPuyoState extends State {
         stall();
         return true;
       }
-    } else { // was horizontal
-      
+    } else if (newMinorY == 1 && isEmptyTile(pivotX, pivotY - 1)) { // Floor lifr
+      minorX = newMinorX;
+      minorY = newMinorY;
+      pivotY = ceil(pivotY-1);
+      stall();
+      return true;
     }
     
     return false;
