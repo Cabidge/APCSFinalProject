@@ -15,7 +15,10 @@ class NewPuyoState extends State {
   
   // Time before pair is finalized
   static final float FINALIZE_BUFFER = 0.4;
+  static final int MAX_STALL_COUNT = 15;
   float bufferTimer;
+  float stallHeight;
+  int stallCount;
   
   NewPuyoState(Game game) {
     super(game); //<>//
@@ -29,6 +32,8 @@ class NewPuyoState extends State {
     pairTypes = new int[]{randomPuyo(), randomPuyo()};
     
     bufferTimer = 0.0;
+    stallHeight = 0.0;
+    stallCount = 0;
   }
   
   void onUpdate(float delta) {
@@ -84,7 +89,14 @@ class NewPuyoState extends State {
    * Resets the buffer timer.
    */
   void stall() {
-    bufferTimer = 0.0;
+    if (pivotY > stallHeight) { // reset stalling
+      stallHeight = pivotY;
+      stallCount = 0;
+    }
+    stallCount++;
+    if (stallCount < MAX_STALL_COUNT) {
+      bufferTimer = 0.0;
+    }
   }
 
   /**
@@ -101,7 +113,6 @@ class NewPuyoState extends State {
         && isEmptyTile(newX+minorX, newY+minorY)) {
       pivotX = newX;
       pivotY = newY;
-      stall();
       return true;
     }
     
@@ -152,7 +163,8 @@ class NewPuyoState extends State {
         stall();
         return true;
       }
-    } else if (newMinorY == 1 && isEmptyTile(pivotX, pivotY - 1)) { // Floor lifr
+    } else if (newMinorY == 1 && isEmptyTile(pivotX, pivotY - 1)
+               && stallCount < MAX_STALL_COUNT /* anti-stall */) { // Floor lifr
       minorX = newMinorX;
       minorY = newMinorY;
       pivotY = ceil(pivotY-1);
