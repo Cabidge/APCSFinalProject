@@ -21,8 +21,11 @@ https://docs.google.com/document/d/114oYsp2H10wIld0sRy-pdgXkgXjDXGaXQkoOZuJiFNY/
 Created the skeletal code (all of the classes, methods, and necessary variables) and implemented the FallingState. (class time)
 
 ### Tristan Pragnell
-...
+Added basic visuals, grid, scoreboard, puyo color/displays, etc.
 
 ## 5/25
 ### Wen Hao Dong
 Implemented the NewPuyoState. (~30 minutes)
+
+### Tristan Pragnell
+Continued visuals
