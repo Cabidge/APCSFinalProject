@@ -10,12 +10,12 @@ class NewPuyoState extends State {
   private int minorX;
   private int minorY;
   
-  // [0] = pivot, [1] = minor
+  //[0] = pivot, [1] = minor
   private int[] pairTypes;
   
   // Time before pair is finalized
-  static final float FINALIZE_BUFFER = 0.5;
-  float timeSinceLanding;
+  static final float FINALIZE_BUFFER = 0.4;
+  float bufferTimer;
   
   NewPuyoState(Game game) {
     super(game); //<>//
@@ -28,19 +28,19 @@ class NewPuyoState extends State {
     
     pairTypes = new int[]{randomPuyo(), randomPuyo()};
     
-    timeSinceLanding = 0.0;
+    bufferTimer = 0.0;
   }
   
   void onUpdate(float delta) {
     if (!moveDown(fallSpeed() * delta)) {
       if ((keyPressed && keyCode == DOWN)
-          || timeSinceLanding >= FINALIZE_BUFFER) {
+          || bufferTimer >= FINALIZE_BUFFER) {
         finalizePair();
       } else {
-        timeSinceLanding += delta;
+        bufferTimer += delta;
       }
     } else {
-      timeSinceLanding = 0.0;
+      bufferTimer = 0.0;
     }
   }
   
@@ -81,6 +81,13 @@ class NewPuyoState extends State {
   }
 
   /**
+   * Resets the buffer timer.
+   */
+  void stall() {
+    bufferTimer = 0.0;
+  }
+
+  /**
    * Trys to update pivotX and pivotY by dx and dy respectively.
    * If this causes either the pivot or minor Puyo to intersect with another Puyo
    * or go out of bounds, it won't update the position.
@@ -94,6 +101,7 @@ class NewPuyoState extends State {
         && isEmptyTile(newX+minorX, newY+minorY)) {
       pivotX = newX;
       pivotY = newY;
+      stall();
       return true;
     }
     
@@ -127,6 +135,7 @@ class NewPuyoState extends State {
     if (isEmptyTile(pivotX + newMinorX, pivotY + newMinorY)) {
       minorX = newMinorX;
       minorY = newMinorY;
+      stall();
       return true;
     }
     
