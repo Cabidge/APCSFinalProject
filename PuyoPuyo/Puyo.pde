@@ -11,3 +11,14 @@ static class Puyo {
 int randomPuyo() {
   return (int)(random(1, 6));
 }
+
+color colorOfPuyo(int type) {
+  switch (type) {
+    case Puyo.RED: return color(255,0,0);
+    case Puyo.BLUE: return color(0,0,255);
+    case Puyo.GREEN: return color(0,255,0);
+    case Puyo.YELLOW: return color(255,255,0);
+    case Puyo.PURPLE: return color(255,0,255);
+    default: return color(0);
+  }
+}
