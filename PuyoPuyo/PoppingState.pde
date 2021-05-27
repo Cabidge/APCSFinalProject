@@ -27,7 +27,7 @@ class PoppingState extends State {
     }
   }
   
-  void onUpdate() {
+  void onUpdate(float delta) {
     
   }
   
