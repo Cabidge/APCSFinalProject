@@ -4,13 +4,13 @@ abstract class State {
   State(Game game) {
     this.game = game;
   }
-  
   /**
    * @param delta the number of seconds since the last onUpdate call.
    */
   abstract void onUpdate(float delta);
   abstract void onDisplay();
   
-  void onKeyPressed() {
-  }
+  void onKeyPressed(){}
+  void onEnter(){}
+  void onExit(){}
 }

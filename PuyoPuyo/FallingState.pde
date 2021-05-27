@@ -14,7 +14,7 @@ class FallingState extends State {
     
     while (timeSinceFalling >= FALL_DELAY) {
       if (!induceGravity()) {
-        game.state = new PoppingState(game);
+        game.changeState(new PoppingState(game));
         return;
       }
       timeSinceFalling -= FALL_DELAY;

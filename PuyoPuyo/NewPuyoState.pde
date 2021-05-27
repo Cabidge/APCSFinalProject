@@ -194,6 +194,6 @@ class NewPuyoState extends State {
   void finalizePair() {
     game.board[ceil(pivotY)][pivotX] = pairTypes[0];
     game.board[ceil(pivotY+minorY)][pivotX+minorX] = pairTypes[1];
-    game.state = new FallingState(game);
+    game.changeState(new FallingState(game));
   }
 }

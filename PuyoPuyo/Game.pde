@@ -14,7 +14,7 @@ class Game {
   static final int boardWidth = puyoSize * WIDTH;
   static final int boardHeight = puyoSize * HEIGHT;
   
-  State state;
+  private State state;
   
   int[][] board;
   int score;
@@ -24,6 +24,7 @@ class Game {
   Game() {
     paused = false;
     state = new NewPuyoState(this);
+    state.onEnter();
     board = new int[HEIGHT][WIDTH];
     score = 0;
     pmillis = millis();
@@ -111,4 +112,10 @@ class Game {
     text(score, 1200, 130);
   }
   
+  void changeState(State nextState) {
+    state.onExit();
+    
+    state = nextState;
+    state.onEnter();
+  }
 }
