@@ -139,6 +139,19 @@ class NewPuyoState extends State {
       return true;
     }
     
+    if (minorX == 0) { // was vertical
+      // Wall nudge
+      if (isEmptyTile(pivotX - newMinorX, pivotY)) {
+        minorX = newMinorX;
+        minorY = newMinorY;
+        pivotX -= newMinorX;
+        stall();
+        return true;
+      }
+    } else { // was horizontal
+      
+    }
+    
     return false;
   }
   
