@@ -27,6 +27,10 @@ class PoppingState extends State {
     }
   }
   
+  void onUpdate() {
+    
+  }
+  
   void onDisplay() {
     
   }
