@@ -81,16 +81,25 @@ class Game {
   }
   
   void displayPuyo(int type, float x, float y, float outlineThickness) {
+    float centerX = (x+0.5) * puyoSize + BOARD_X;
+    float centerY = (y+0.5) * puyoSize+BOARD_Y;
+    
     fill(colorOfPuyo(type));
     stroke(0);
     strokeWeight(outlineThickness);
-    circle((x+0.5)*puyoSize+BOARD_X, (y+0.5)*puyoSize+BOARD_Y, puyoSize);
+    circle(centerX, centerY, puyoSize);
     
     // Eyes
-    stroke(255);
-    fill(255,255,255);
-    circle(x*puyoSize+BOARD_X+20, y*puyoSize+BOARD_Y+30, puyoSize/3);
-    circle(x*puyoSize+BOARD_X+55, y*puyoSize+BOARD_Y+30, puyoSize/3);
+    strokeWeight(1);
+    fill(255);
+    float eyeHeight = centerY - puyoSize * 0.02;
+    float eyeOffset = puyoSize * 0.22;
+    circle(centerX - eyeOffset, eyeHeight, puyoSize * 0.42);
+    circle(centerX + eyeOffset, eyeHeight, puyoSize * 0.42);
+    // Pupil
+    fill(lerpColor(colorOfPuyo(type), color(0), 0.24));
+    circle(centerX - eyeOffset + 1, eyeHeight - 1, puyoSize * 0.24);
+    circle(centerX + eyeOffset - 1, eyeHeight - 1, puyoSize * 0.24);
   }
   
   void drawConnection(int type, int fromX, int fromY, int toX, int toY) {
