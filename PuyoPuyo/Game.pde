@@ -93,10 +93,9 @@ class Game {
       displayNextPairs();
     }
     
-    //if (paused) {
-    //  textSize(80);
-    //  text("PAUSED" , 100, 200);
-    //}
+    if(gamemode==3){
+      controlPanel();
+    }
   }
   
   void displayNextPairs() {
@@ -122,34 +121,99 @@ class Game {
   }
   
   void startScreen(){
-    background(0);
     int gray = 200;
-    textSize(90);
-    fill(0,255,255);
-    text("GAME MODE", 570,280);
-    fill(255);
-    text("NORMAL", 660,480);
-    text("TIMER", 700,680);
-    if(mouseX>600 && mouseX<600+500 &&
-       mouseY>400 && mouseY<400+100) {
+    if(gamemode==0){
+      background(0);
+      textSize(90);
+      fill(0,255,255);
+      text("GAME MODE", 570,280);
+      fill(255);
+      text("NORMAL", 660,480);
+      text("TIMER", 700,680);
+      textSize(30);
+      fill(255,0,0);
+      text("controls", 1515,885);
+    }
+    
+    if(gamemode==0 && mouseX>600 && mouseX<600+500 && 
+       mouseY>400 && mouseY<400+100) { // GAMEMODE NORMAL
       fill(gray);
       rect(600,400,500,100);
       fill(255);
-      text("NORMAL", 660,480); // gray when mouse over
+      textSize(90);
+      text("NORMAL", 660,480);
       if(mousePressed){
         gamemode=1;
       }
     }
-    if(mouseX>600 && mouseX<600+500 &&
-       mouseY>600 && mouseY<600+100) {
+    if(gamemode==0 && mouseX>600 && mouseX<600+500 && 
+       mouseY>600 && mouseY<600+100) { // GAMEMODE TIMER
       fill(gray);
       rect(600,600,500,100);
       fill(255);
-      text("TIMER", 700,680); // gray when mouse over
+      textSize(90);
+      text("TIMER", 700,680);
       if(mousePressed){
         gamemode=2;
       }
     }
+    if(gamemode==0 && mouseX>1500 && mouseX<1500+150 &&
+       mouseY>850 && mouseY<850+50) { // CONTROLS PAGE
+      fill(gray);
+      rect(1500,850,150,50);
+      fill(255,0,0);
+      textSize(30);
+      text("controls", 1515,885);
+      if(mousePressed){
+        gamemode=3;
+      }
+    }
+  }
+  
+  void controlPanel(){
+     clear();
+     fill(255);
+     text("CONTROLS", 100,100);
+     text("Movement: ", 100,200);
+     text("or", 400, 300);
+     text("GAME: ", 100,500);
+     text("Return to title",300,595);
+     text("Pause",300,695);
+     text("Rotate", 375,795);
+     
+     rect(200,250,70,70,8,8,8,8);
+     rect(200,325,70,70,8,8,8,8);
+     rect(125,325,70,70,8,8,8,8);
+     rect(275,325,70,70,8,8,8,8);
+
+     rect(550,250,70,70,8,8,8,8);
+     rect(550,325,70,70,8,8,8,8);
+     rect(475,325,70,70,8,8,8,8);
+     rect(625,325,70,70,8,8,8,8);
+     
+     rect(200,550,70,70,8,8,8,8);
+     rect(200,650,70,70,8,8,8,8);
+     rect(200,750,70,70,8,8,8,8);
+     rect(275,750,70,70,8,8,8,8);
+     
+     fill(0);
+     text("W",225,295);
+     text("A",150,370);
+     text("S",225,370);
+     text("D",300,370);
+     text("^",225+350,295);
+     text("<",150+350,370);
+     text("v",225+350,370);
+     text(">",300+350,370);
+     text("R",225,595);
+     text("P",225,695);
+     text("Z",225,795);
+     text("X",300,795);
+     
+     
+     //text("A or <-- to move left", 300, 200);
+     //text("D or --> to move right", 300, 250);
+     //text("S or | to move right", 300, 300);
   }
   
   void displayPuyo(int type, float x, float y) {
