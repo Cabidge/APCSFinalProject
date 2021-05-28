@@ -14,6 +14,8 @@ class Game {
   
   private Queue<int[]> nextPairs;
   
+  private List<Animation> animations;
+  
   int[][] board;
   int score;
   
@@ -30,6 +32,8 @@ class Game {
     board = new int[HEIGHT][WIDTH];
     score = 0;
     pmillis = millis();
+    
+    animations = new ArrayList<Animation>();
   }
   
   void update() {
@@ -53,6 +57,19 @@ class Game {
   
   void display() {
     state.onDisplay();
+    
+    // Handle animations
+    for (int i = animations.size()-1; i >=0; i--) {
+      if (animations.get(i).isDone()) {
+        animations.remove(i);
+      } else {
+        animations.get(i).display();
+      }
+    }
+  }
+  
+  void addAnimation(Animation anim) {
+    animations.add(anim);
   }
   
   void displayBack() {
