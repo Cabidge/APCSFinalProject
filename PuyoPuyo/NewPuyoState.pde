@@ -21,7 +21,7 @@ class NewPuyoState extends State {
   int stallCount;
   
   NewPuyoState(Game game) {
-    super(game); //<>// //<>//
+    super(game); //<>// //<>// //<>//
     
     pivotX = 2;
     pivotY = 1;
@@ -87,7 +87,6 @@ class NewPuyoState extends State {
   
   float fallSpeed() {
     if (keyPressed && (keyCode == DOWN || key == 's' || key == 'S')) {
-      System.out.println("down");
       return MAX_FALL_SPEED;
     } else {
       return IDLE_FALL_SPEED;
