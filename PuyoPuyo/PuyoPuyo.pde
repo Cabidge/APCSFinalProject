@@ -1,3 +1,4 @@
+import javax.swing.JOptionPane;
 Game game;
 
 void setup() {
@@ -12,9 +13,15 @@ void draw() {
 }
 
 void keyPressed() {
-  if (key == 'r' || key == 'R') {
-    game = new Game();
+  if ((key == 'r' || key == 'R') && game.gamemode() != 0 && game.gamemode() != 3) {
+    game.setPaused(true);
+    int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
+    game.setPaused(false);
+    if(response == 0){
+      game = new Game();
+    }
   } else {
     game.keyPressed();
+    //System.out.println(keyCode);
   }
 }
