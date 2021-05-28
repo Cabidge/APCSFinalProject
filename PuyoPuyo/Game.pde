@@ -14,6 +14,7 @@ class Game {
   
   int[][] board;
   int score;
+  int gamemode;
   
   int pmillis;
   
@@ -23,6 +24,7 @@ class Game {
     state.onEnter();
     board = new int[HEIGHT][WIDTH];
     score = 0;
+    gamemode = 0;
     pmillis = millis();
   }
   
@@ -34,37 +36,40 @@ class Game {
   }
   
   void display() {
-    background(200);
-    displayScore();
-    rectMode(CORNER);
-    rect(BOARD_X, BOARD_Y, BOARD_WIDTH, BOARD_HEIGHT); // Main rectangle
-  
-    //rect(1200, 50, 200, 100);
-    stroke(0,0,0);
-    //Draw grid
-    for (int x=0; x<WIDTH; x++) {
-      for (int y=0; y<HEIGHT; y++) {
-        int type = board[y][x];
-        if (type != Puyo.NONE) {
-          if (x < WIDTH - 1 && board[y][x+1] == type) {
-            drawConnection(type, x, y, x + 1, y);
+    startScreen();
+    if(gamemode == 1){
+      background(200);
+      displayScore();
+      rectMode(CORNER);
+      rect(BOARD_X, BOARD_Y, BOARD_WIDTH, BOARD_HEIGHT); // Main rectangle
+    
+      //rect(1200, 50, 200, 100);
+      stroke(0,0,0);
+      //Draw grid
+      for (int x=0; x<WIDTH; x++) {
+        for (int y=0; y<HEIGHT; y++) {
+          int type = board[y][x];
+          if (type != Puyo.NONE) {
+            if (x < WIDTH - 1 && board[y][x+1] == type) {
+              drawConnection(type, x, y, x + 1, y);
+            }
+            if (y < HEIGHT - 1 && board[y+1][x] == type) {
+              drawConnection(type, x, y, x, y + 1);
+            }
+            displayPuyo(type, x, y);
           }
-          if (y < HEIGHT - 1 && board[y+1][x] == type) {
-            drawConnection(type, x, y, x, y + 1);
-          }
-          displayPuyo(type, x, y);
         }
       }
-    }
-    state.onDisplay();
-    strokeWeight(4);
-    stroke(255,0,0);
-    line(755,55,820,120);
-    line(820,55,755,120);
-    
-    if (paused) {
-      textSize(80);
-      text("PAUSED" , 100, 200);
+      state.onDisplay();
+      strokeWeight(4);
+      stroke(255,0,0);
+      line(755,55,820,120);
+      line(820,55,755,120);
+      
+      if (paused) {
+        textSize(80);
+        text("PAUSED" , 100, 200);
+      }
     }
   }
   
@@ -73,6 +78,37 @@ class Game {
       paused = !paused;
     } else {
       state.onKeyPressed();
+    }
+  }
+  
+  void startScreen(){
+    background(0);
+    int gray = 200;
+    textSize(90);
+    fill(0,255,255);
+    text("GAME MODE", 570,280);
+    fill(255);
+    text("NORMAL", 660,480);
+    text("TIMER", 700,680);
+    if(mouseX>600 && mouseX<600+500 &&
+       mouseY>400 && mouseY<400+100) {
+      fill(gray);
+      rect(600,400,500,100);
+      fill(255);
+      text("NORMAL", 660,480); // gray when mouse over
+      if(mousePressed){
+        gamemode=1;
+      }
+    }
+    if(mouseX>600 && mouseX<600+500 &&
+       mouseY>600 && mouseY<600+100) {
+      fill(gray);
+      rect(600,600,500,100);
+      fill(255);
+      text("TIMER", 700,680); // gray when mouse over
+      if(mousePressed){
+        gamemode=2;
+      }
     }
   }
   
