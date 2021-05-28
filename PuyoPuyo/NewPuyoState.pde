@@ -21,7 +21,7 @@ class NewPuyoState extends State {
   int stallCount;
   
   NewPuyoState(Game game) {
-    super(game); //<>//
+    super(game); //<>// //<>//
     
     pivotX = 2;
     pivotY = 1;
@@ -38,7 +38,7 @@ class NewPuyoState extends State {
   
   void onUpdate(float delta) {
     if (!moveDown(fallSpeed() * delta)) {
-      if ((keyPressed && keyCode == DOWN)
+      if ((keyPressed && (keyCode == DOWN || key == 's' || key == 'S'))
           || bufferTimer >= FINALIZE_BUFFER) {
         finalizePair();
       } else {
@@ -52,7 +52,7 @@ class NewPuyoState extends State {
   void onDisplay() {
     game.displayPuyo(pairTypes[1], pivotX+minorX, pivotY+minorY);
     game.displayPuyo(pairTypes[0], pivotX, pivotY, 3);
-  }
+  }  
   
   void onKeyPressed() {
     switch (key) {
@@ -63,6 +63,14 @@ class NewPuyoState extends State {
       case 'x':
       case 'X':
         rotate(1);
+        break;
+      case 'a':
+      case 'A':
+        updatePivot(-1, 0);
+        break;
+      case 'd':
+      case 'D':
+        updatePivot(1, 0);
         break;
       case CODED:
         switch (keyCode) {
@@ -78,7 +86,8 @@ class NewPuyoState extends State {
   }
   
   float fallSpeed() {
-    if (keyPressed && keyCode == DOWN) {
+    if (keyPressed && (keyCode == DOWN || key == 's' || key == 'S')) {
+      System.out.println("down");
       return MAX_FALL_SPEED;
     } else {
       return IDLE_FALL_SPEED;
