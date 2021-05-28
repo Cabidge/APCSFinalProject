@@ -1,6 +1,10 @@
 class ControlsState extends State {
+  Button backButton;
+  
   ControlsState(Game game) {
     super(game);
+    
+    backButton = new Button("back", width - 120, height - 120, 120, 40, 24);
   }
   
   void onDisplay() {
@@ -49,9 +53,16 @@ class ControlsState extends State {
      //text("A or <-- to move left", 300, 200);
      //text("D or --> to move right", 300, 250);
      //text("S or | to move right", 300, 300);
+     backButton.display();
   }
   
   void onUpdate(float delta) {
     
+  }
+  
+  void onMousePressed() {
+    if (backButton.isSelected()) {
+      game.changeState(new TitleState(game));
+    }
   }
 }
