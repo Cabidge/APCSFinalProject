@@ -197,4 +197,16 @@ class NewPuyoState extends State {
     game.score += 2;
     game.changeState(new FallingState(game));
   }
+  
+  /**
+   * Finds the index of the bottom empty tile of a column.
+   */
+  int topOfColumn(int col) {
+    for (int i = Game.HEIGHT + 1; i >= 0; i--) {
+      if (game.board[i][col] == Puyo.NONE) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }
