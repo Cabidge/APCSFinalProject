@@ -15,7 +15,6 @@ void draw() {
 void keyPressed() {
   if ((key == 'r' || key == 'R') && game.gamemode() != 0 && game.gamemode() != 3) {
     int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
-    println(response);
     if(response ==0){
       game = new Game();
     }
