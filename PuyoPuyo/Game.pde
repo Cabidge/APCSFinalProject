@@ -12,12 +12,18 @@ class Game {
   
   private State state;
   
+  private Queue<int[]> nextPairs;
+  
   int[][] board;
   int score;
   
   int pmillis;
   
   Game() {
+    nextPairs = new ArrayDeque<int[]>();
+    addRandomPair();
+    addRandomPair();
+    
     paused = false;
     state = new NewPuyoState(this);
     state.onEnter();
@@ -27,10 +33,22 @@ class Game {
   }
   
   void update() {
+    while (nextPairs.size() < 2) {
+    }
+    
     if (!paused) {
       state.onUpdate((millis()-pmillis)/1000.0);
     }
     pmillis = millis();
+  }
+  
+  int[] nextPair() {
+    addRandomPair();
+    return nextPairs.remove();
+  }
+  
+  private void addRandomPair() {
+    nextPairs.add(new int[]{randomPuyo(), randomPuyo()});
   }
   
   void display() {
@@ -62,9 +80,25 @@ class Game {
     line(755,55,820,120);
     line(820,55,755,120);
     
+    displayNextPairs();
+    
     if (paused) {
       textSize(80);
       text("PAUSED" , 100, 200);
+    }
+  }
+  
+  void displayNextPairs() {
+    int i = 0;
+    for (int[] pair : nextPairs) {
+      if (i > 2) { // Only show the first two
+        break;
+      }
+      
+      displayPuyo(pair[0], WIDTH + 0.5 + i * 1.5, 2.5 + i * 0.8);
+      displayPuyo(pair[1], WIDTH + 0.5 + i * 1.5, 1.5 + i * 0.8);
+      
+      i++;
     }
   }
   
@@ -125,7 +159,7 @@ class Game {
     if (chain > 0) { 
       fill(230,200,0); // Orange
       textSize(30 + chain * 5);
-      text(chain + "-chain!", 1100, 420);
+      text(chain + "-chain!", 1100, 620);
     }
   }
   

@@ -29,7 +29,7 @@ class NewPuyoState extends State {
     minorX = 0;
     minorY = -1;
     
-    pairTypes = new int[]{randomPuyo(), randomPuyo()};
+    pairTypes = game.nextPair();
     
     bufferTimer = 0.0;
     stallHeight = 0.0;
