@@ -21,14 +21,14 @@ https://docs.google.com/document/d/114oYsp2H10wIld0sRy-pdgXkgXjDXGaXQkoOZuJiFNY/
 Created the skeletal code (all of the classes, methods, and necessary variables) and implemented the FallingState. (class time)
 
 ### Tristan Pragnell
-Added basic visuals, grid, scoreboard, puyo color/displays, etc.
+Added basic visuals, grid, scoreboard, puyo color/displays, etc. (~30 minutes)
 
 ## 5/25
 ### Wen Hao Dong
 Implemented the NewPuyoState. (~30 minutes)
 
 ### Tristan Pragnell
-Continued visuals
+Continued visuals (shape, eyes, background, board, etc.) (~45 minutes)
 
 ## 5/26
 ### Wen Hao Dong
@@ -37,3 +37,9 @@ Implemented Puyo popping, failing, and made the Puyos easier to control. (~1 hou
 ## 5/27
 ### Wen Hao Dong
 Made controlling Puyo more forgiving, implemented chaining, and updated visuals. (~1 hour)
+
+## 5/28
+### Wen Hao Dong
+
+### Tristan Pragnell 
+Added control page, title screen, confirmation dialogue (~1.5 hours)
