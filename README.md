@@ -46,3 +46,4 @@ Made controlling Puyo more forgiving, implemented chaining, and updated visuals.
 
 ### Tristan Pragnell 
 Added control page, title screen, confirmation dialogue (~1.5 hours)
+Added alternative keybinds
