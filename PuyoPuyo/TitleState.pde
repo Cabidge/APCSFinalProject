@@ -6,7 +6,7 @@ class TitleState extends State {
   void onDisplay() {
     int gray = 200;
     
-    background(0,128); // transparent background
+    background(0);
     textSize(90);
     fill(0,255,255);
     text("GAME MODE", 570,280);
