@@ -86,16 +86,17 @@ class Game {
       
       if (paused) {
         textSize(80);
+        fill(255);
         text("PAUSED" , 100, 200);
       }
       
       displayNextPairs();
     }
     
-    if (paused) {
-      textSize(80);
-      text("PAUSED" , 100, 200);
-    }
+    //if (paused) {
+    //  textSize(80);
+    //  text("PAUSED" , 100, 200);
+    //}
   }
   
   void displayNextPairs() {
