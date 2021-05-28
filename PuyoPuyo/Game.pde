@@ -198,7 +198,9 @@ class Game {
     background(0);
     fill(255);
     textSize(32);
+    fill(0,255,255);
     text("SCORE", 1200, 80);
+    fill(255);
     text(score, 1200, 130);
   }
   
