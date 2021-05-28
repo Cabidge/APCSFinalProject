@@ -220,6 +220,11 @@ class Game {
     return gamemode;
   }
   
+  void setPaused(boolean b){
+    paused = b;
+  }
+    
+  
   void displayPuyo(int type, float x, float y) {
     displayPuyo(type, x, y, 1);
   }
