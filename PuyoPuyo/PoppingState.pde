@@ -35,7 +35,7 @@ class PoppingState extends State {
   }
   
   void onDisplay() {
-    
+    game.displayGame();
   }
   
   /**

@@ -13,10 +13,9 @@ void draw() {
 }
 
 void keyPressed() {
-  if ((key == 'r' || key == 'R') && game.gamemode() != 0 && game.gamemode() != 3) {
-    game.setPaused(true);
+  if ((key == 'r' || key == 'R')) {
     int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
-    game.setPaused(false);
+    game.pmillis = millis();
     if(response == 0){
       game = new Game();
     }
@@ -24,4 +23,8 @@ void keyPressed() {
     game.keyPressed();
     //System.out.println(keyCode);
   }
+}
+
+void mousePressed() {
+  game.mousePressed();
 }

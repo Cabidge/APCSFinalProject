@@ -6,6 +6,7 @@ class FailState extends State {
   void onUpdate(float delta) { }
   
   void onDisplay() {
+    game.displayGame();
     fill(255,0,0);
     text("Press 'R' to restart", 100, 100);
     fill(255,0,0);
