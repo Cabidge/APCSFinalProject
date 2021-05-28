@@ -34,6 +34,9 @@ Continued visuals (shape, eyes, background, board, etc.) (~45 minutes)
 ### Wen Hao Dong
 Implemented Puyo popping, failing, and made the Puyos easier to control. (~1 hour)
 
+### Tristan Pragnell
+Did some tweaking and minor improvements (~15 min)
+
 ## 5/27
 ### Wen Hao Dong
 Made controlling Puyo more forgiving, implemented chaining, and updated visuals. (~1 hour)
