@@ -89,12 +89,6 @@ class Game {
         text("PAUSED" , 100, 200);
       }
       
-      state.onDisplay();
-      strokeWeight(4);
-      stroke(255,0,0);
-      line(755,55,820,120);
-      line(820,55,755,120);
-      
       displayNextPairs();
     }
     
