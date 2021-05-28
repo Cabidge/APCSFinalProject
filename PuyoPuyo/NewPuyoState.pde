@@ -1,6 +1,8 @@
 class NewPuyoState extends State {
-  static final float IDLE_FALL_SPEED = 0.8;
-  static final float MAX_FALL_SPEED = 10;
+  static final float STEEPNESS = 0.4; // a magical constant in a formula
+  static final float MIN_IDLE_FALL_SPEED = 0.1;
+  static final float MAX_IDLE_FALL_SPEED = 2;
+  static final float MAX_FALL_SPEED = 12;
   
   // Pivot location
   private int pivotX;
@@ -19,9 +21,9 @@ class NewPuyoState extends State {
   float bufferTimer;
   float stallHeight;
   int stallCount;
-  
+   //<>//
   NewPuyoState(Game game) {
-    super(game); //<>// //<>// //<>//
+    super(game); //<>// //<>//
     
     pivotX = 2;
     pivotY = 1;
@@ -91,7 +93,9 @@ class NewPuyoState extends State {
     if (keyPressed && (keyCode == DOWN || key == 's' || key == 'S')) {
       return MAX_FALL_SPEED;
     } else {
-      return IDLE_FALL_SPEED;
+      return (MIN_IDLE_FALL_SPEED - MAX_IDLE_FALL_SPEED)
+             / (STEEPNESS * game.getLevel() + 1)
+             + MAX_IDLE_FALL_SPEED;
     }
   }
 
