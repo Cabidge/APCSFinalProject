@@ -6,6 +6,7 @@ class ControlsState extends State {
   void onDisplay() {
      clear();
      fill(255);
+     textAlign(LEFT);
      text("CONTROLS", 100,100);
      text("Movement: ", 100,200);
      text("or", 400, 300);
@@ -14,6 +15,7 @@ class ControlsState extends State {
      text("Pause",300,695);
      text("Rotate", 375,795);
      
+     rectMode(CORNER);
      rect(200,250,70,70,8,8,8,8);
      rect(200,325,70,70,8,8,8,8);
      rect(125,325,70,70,8,8,8,8);

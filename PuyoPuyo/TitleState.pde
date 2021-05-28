@@ -1,41 +1,26 @@
 class TitleState extends State {
+  Button normalButton;
+  Button timerButton;
+  Button controlsButton;
+  
   TitleState(Game game) {
     super(game);
+    
+    normalButton = new Button("NORMAL", width/2, height/2 - 100, 500, 100, 90);
+    timerButton = new Button("TIMER", width/2, height/2 + 90, 500, 100, 90);
+    controlsButton = new Button("controls", width - 120, height - 120, 120, 40, 24);
   }
   
   void onDisplay() {
-    int gray = 200;
-    
     background(0);
     textSize(90);
     fill(0,255,255);
-    text("GAME MODE", 570,280);
-    fill(255);
-    text("NORMAL", 660,480);
-    text("TIMER", 700,680);
-    textSize(30);
-    fill(255,0,0);
-    text("controls", 1515,885);
+    textAlign(CENTER, CENTER);
+    text("GAME MODE", width/2, 200);
     
-    if (normalSelected()) {
-      fill(gray);
-      rect(600,400,500,100);
-      fill(255);
-      textSize(90);
-      text("NORMAL", 660,480);
-    } else if (timerSelected()) {
-      fill(gray);
-      rect(600,600,500,100);
-      fill(255);
-      textSize(90);
-      text("TIMER", 700,680);
-    } else if (controlsSelected()) {
-      fill(gray);
-      rect(1500,850,150,50);
-      fill(255,0,0);
-      textSize(30);
-      text("controls", 1515,885);
-    }
+    normalButton.display();
+    timerButton.display();
+    controlsButton.display();
   }
   
   void onUpdate(float delta) {
@@ -43,25 +28,11 @@ class TitleState extends State {
   }
   
   void onMousePressed() {
-    if (normalSelected()) {
+    if (normalButton.isSelected()) {
       game.changeState(new NewPuyoState(game));
-    } else if (controlsSelected()) {
+    } else if (controlsButton.isSelected()) {
       game.changeState(new ControlsState(game));
     }
   }
-  
-  boolean normalSelected() {
-    return mouseX>600 && mouseX<600+500
-           && mouseY>400 && mouseY<400+100;
-  }
-  
-  boolean timerSelected() {
-    return mouseX>600 && mouseX<600+500
-           && mouseY>600 && mouseY<600+100;
-  }
-
-  boolean controlsSelected() {
-    return mouseX>1500 && mouseX<1500+150
-           && mouseY>850 && mouseY<850+50;
-  }
+    
 }

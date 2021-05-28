@@ -162,7 +162,7 @@ class Game {
   }
 
   void displayScore(){
-    fill(255);
+    textAlign(LEFT);
     textSize(32);
     fill(0,255,255);
     text("SCORE", 1200, 80);
@@ -172,6 +172,7 @@ class Game {
   
   void displayChain(int chain) {
     if (chain > 0) { 
+      textAlign(LEFT);
       fill(230,200,0); // Orange
       textSize(30 + chain * 5);
       text(chain + "-chain!", 1100, 620);
@@ -191,6 +192,7 @@ class Game {
   
   void displayLevel() {
     fill(255);
+    textAlign(LEFT);
     text("level: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-40);
     
     rectMode(CORNER);
