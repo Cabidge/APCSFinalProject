@@ -16,7 +16,7 @@ class Game {
   
   int[][] board;
   int score;
-  int gamemode;
+  int gamemode = 0;
   
   int pmillis;
   
@@ -214,6 +214,10 @@ class Game {
      //text("A or <-- to move left", 300, 200);
      //text("D or --> to move right", 300, 250);
      //text("S or | to move right", 300, 300);
+  }
+  
+  int gamemode(){
+    return gamemode;
   }
   
   void displayPuyo(int type, float x, float y) {
