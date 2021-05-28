@@ -1,5 +1,3 @@
-import java.util.*;
-
 class PoppingState extends State {
   static final int MIN_POP_SIZE = 4;
   Queue<int[]> frontier;
