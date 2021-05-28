@@ -55,10 +55,10 @@ class Game {
     state.onDisplay();
   }
   
-  void displayGame() {
-    background(200);
-    displayScore();
+  void displayBack() {
+    background(0);
     rectMode(CORNER);
+    fill(240);
     rect(BOARD_X, BOARD_Y, BOARD_WIDTH, BOARD_HEIGHT); // Main rectangle
   
     //rect(1200, 50, 200, 100);
@@ -78,10 +78,16 @@ class Game {
         }
       }
     }
+  }
+  
+  void displayOverlay() {
+    displayScore();
     strokeWeight(4);
     stroke(255,0,0);
     line(755,55,820,120);
     line(820,55,755,120);
+    
+    displayNextPairs();
     
     displayLevel();
     
@@ -90,8 +96,6 @@ class Game {
       fill(255);
       text("PAUSED" , 100, 200);
     }
-    
-    displayNextPairs();
   }
   
   void displayNextPairs() {
@@ -158,7 +162,6 @@ class Game {
   }
 
   void displayScore(){
-    background(0);
     fill(255);
     textSize(32);
     fill(0,255,255);
