@@ -39,6 +39,14 @@ class NewPuyoState extends State {
   }
   
   void onUpdate(float delta) {
+    if (game.timeActive) {
+      game.decreaseTime(delta);
+      if (!game.hasTime()) {
+        hardDrop();
+        return;
+      }
+    }
+    
     if (!moveDown(fallSpeed() * delta)) {
       if ((keyPressed && (keyCode == DOWN || key == 's' || key == 'S'))
           || bufferTimer >= FINALIZE_BUFFER) {

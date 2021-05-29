@@ -8,6 +8,8 @@ class FailState extends State {
   void onDisplay() {
     game.displayBack();
     game.displayOverlay();
+    
+    textAlign(LEFT);
     fill(255,0,0);
     text("Press 'R' to restart", 100, 100);
     fill(255,0,0);

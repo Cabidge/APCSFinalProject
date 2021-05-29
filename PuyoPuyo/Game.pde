@@ -1,4 +1,8 @@
 class Game {
+  static final float TIME_START = 30.0;
+  boolean timeActive;
+  private float timeLeft;
+  
   static final int WIDTH = 6;
   static final int HEIGHT = 14;
   boolean paused = false;
@@ -22,6 +26,8 @@ class Game {
   int pmillis;
   
   Game() {
+    timeLeft = TIME_START;
+    
     nextPairs = new ArrayDeque<int[]>();
     addRandomPair();
     addRandomPair();
@@ -113,6 +119,10 @@ class Game {
       fill(255);
       text("PAUSED" , 100, 200);
     }
+    
+    if (timeActive) {
+      displayTime();
+    }
   }
   
   void displayNextPairs() {
@@ -200,6 +210,21 @@ class Game {
     text("SCORE", 1200, 80);
     fill(255);
     text(score, 1200, 130);
+  }
+  
+  void displayTime() {
+    textAlign(CENTER);
+    textSize(32);
+    fill(255);
+    text("Time Remaining: " + floor(timeLeft * 10) / 10.0, BOARD_X + BOARD_WIDTH/2, BOARD_Y + BOARD_HEIGHT + 32);
+  }
+  
+  void decreaseTime(float amount) {
+    timeLeft = max(0, timeLeft - amount);
+  }
+  
+  boolean hasTime() {
+    return timeLeft > 0;
   }
   
   /**

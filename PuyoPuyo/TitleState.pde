@@ -30,6 +30,9 @@ class TitleState extends State {
   void onMousePressed() {
     if (normalButton.isSelected()) {
       game.changeState(new NewPuyoState(game));
+    } else if (timerButton.isSelected()) {
+      game.timeActive = true;
+      game.changeState(new NewPuyoState(game));
     } else if (controlsButton.isSelected()) {
       game.changeState(new ControlsState(game));
     }
