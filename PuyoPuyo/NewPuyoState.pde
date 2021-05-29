@@ -124,6 +124,8 @@ class NewPuyoState extends State {
       case 'D':
         updatePivot(1, 0);
         break;
+      case 'w':
+      case 'W':
       case ' ':
         hardDrop();
         break;
