@@ -53,10 +53,49 @@ class NewPuyoState extends State {
   
   void onDisplay() {
     game.displayBack();
+    displayHint();
     game.displayPuyo(pairTypes[1], pivotX+minorX, pivotY+minorY);
     game.displayPuyo(pairTypes[0], pivotX, pivotY, 3);
     game.displayOverlay();
-  }  
+  }
+  
+  void displayHint() {
+    int[] finalHeights = getFinalHeights();
+    displayHintAt(pairTypes[0], pivotX, finalHeights[0]);
+    displayHintAt(pairTypes[1], pivotX+minorX, finalHeights[1]);
+  }
+  
+  int[] getFinalHeights() {
+    if (minorX == 0) { // vertical
+      int top = topOfColumn(pivotX);
+      if (minorY == -1) { // minor above
+        return new int[]{top, top-1};
+      } else { // pivot above
+        return new int[]{top-1, top};
+      }
+    } else {
+      return new int[]{topOfColumn(pivotX), topOfColumn(pivotX + minorX)};
+    }
+  }
+  
+  void displayHintAt(int type, int x, int y) {
+    fill(colorOfPuyo(type));
+    circle((x + 0.5) * Game.puyoSize + Game.BOARD_X,
+           (y + 0.5) * Game.puyoSize + Game.BOARD_Y,
+           Game.puyoSize / 3);
+  }
+  
+  /**
+   * Finds the index of the bottom empty tile of a column.
+   */
+  int topOfColumn(int col) {
+    for (int i = Game.HEIGHT-1; i >= 0; i--) {
+      if (game.board[i][col] == Puyo.NONE) {
+        return i;
+      }
+    }
+    return -1;
+  }
   
   void onKeyPressed() {
     switch (key) {
@@ -210,17 +249,5 @@ class NewPuyoState extends State {
     game.board[ceil(pivotY+minorY)][pivotX+minorX] = pairTypes[1];
     game.addScore(2);
     game.changeState(new FallingState(game));
-  }
-  
-  /**
-   * Finds the index of the bottom empty tile of a column.
-   */
-  int topOfColumn(int col) {
-    for (int i = Game.HEIGHT + 1; i >= 0; i--) {
-      if (game.board[i][col] == Puyo.NONE) {
-        return i;
-      }
-    }
-    return -1;
   }
 }
