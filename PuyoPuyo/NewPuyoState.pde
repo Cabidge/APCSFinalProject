@@ -65,6 +65,13 @@ class NewPuyoState extends State {
     displayHintAt(pairTypes[1], pivotX+minorX, finalHeights[1]);
   }
   
+  void displayHintAt(int type, int x, int y) {
+    fill(colorOfPuyo(type));
+    circle((x + 0.5) * Game.puyoSize + Game.BOARD_X,
+           (y + 0.5) * Game.puyoSize + Game.BOARD_Y,
+           Game.puyoSize / 3);
+  }
+  
   int[] getFinalHeights() {
     if (minorX == 0) { // vertical
       int top = topOfColumn(pivotX);
@@ -78,11 +85,13 @@ class NewPuyoState extends State {
     }
   }
   
-  void displayHintAt(int type, int x, int y) {
-    fill(colorOfPuyo(type));
-    circle((x + 0.5) * Game.puyoSize + Game.BOARD_X,
-           (y + 0.5) * Game.puyoSize + Game.BOARD_Y,
-           Game.puyoSize / 3);
+  void hardDrop() {
+    int[] finalHeights = getFinalHeights();
+    
+    game.board[finalHeights[0]][pivotX] = pairTypes[0];
+    game.board[finalHeights[1]][pivotX+minorX] = pairTypes[1];
+    game.addScore(2);
+    game.changeState(new PoppingState(game, 0));
   }
   
   /**
@@ -115,6 +124,9 @@ class NewPuyoState extends State {
       case 'D':
         updatePivot(1, 0);
         break;
+      case ' ':
+        hardDrop();
+        break;
       case CODED:
         switch (keyCode) {
           case LEFT:
@@ -122,6 +134,9 @@ class NewPuyoState extends State {
             break;
           case RIGHT:
             updatePivot(1, 0);
+            break;
+          case UP:
+            hardDrop();
             break;
         }
         break;
