@@ -77,7 +77,7 @@ class PoppingState extends State {
       }
       return false;
     } else {
-      game.score += poppedGroup.size() * currentChain;
+      game.addScore(poppedGroup.size() * currentChain);
       return true;
     }
   }

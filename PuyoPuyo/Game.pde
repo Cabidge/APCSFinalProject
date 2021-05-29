@@ -17,7 +17,7 @@ class Game {
   private List<Animation> animations;
   
   int[][] board;
-  int score;
+  private int score;
   
   int pmillis;
   
@@ -185,6 +185,14 @@ class Game {
     text("SCORE", 1200, 80);
     fill(255);
     text(score, 1200, 130);
+  }
+  
+  /**
+   * Use this instead of directly adding to the score counter.
+   */
+  void addScore(int amount) {
+    score += amount;
+    addAnimation(new FadingText("+" + amount, 1200 + random(-30, 30), 100 + random(10), 24));
   }
   
   void displayChain(int chain) {
