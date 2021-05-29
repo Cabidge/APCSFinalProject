@@ -195,15 +195,6 @@ class Game {
     addAnimation(new FadingText("+" + amount, 1200 + random(-30, 30), 100 + random(10), 24));
   }
   
-  void displayChain(int chain) {
-    if (chain > 0) { 
-      textAlign(LEFT);
-      fill(230,200,0); // Orange
-      textSize(30 + chain * 5);
-      text(chain + "-chain!", 1100, 620);
-    }
-  }
-  
   void changeState(State nextState) {
     state.onExit();
     

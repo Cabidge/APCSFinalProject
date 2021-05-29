@@ -30,7 +30,6 @@ class FallingState extends State {
   void onDisplay() {
     game.displayBack();
     game.displayOverlay();
-    game.displayChain(currentChain);
   }
   
   /**

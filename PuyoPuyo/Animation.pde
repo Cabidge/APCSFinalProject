@@ -35,7 +35,11 @@ class FadingText extends Animation {
   private float opaqueTime;
   
   FadingText(String text, float x, float y, float size) {
-    this(text, x, y, 0, -45, size, color(255), 0.2);
+    this(text, x, y, size, color(255));
+  }
+  
+  FadingText(String text, float x, float y, float size, color c) {
+    this(text, x, y, 0, -45, size, c, 0.2);
   }
   
   FadingText(String text, float x, float y, float dx, float dy, float size, color c, float opaqueTime) {

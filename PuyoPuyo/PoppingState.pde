@@ -20,6 +20,10 @@ class PoppingState extends State {
       }
     }
     if (anyPopped) {
+      game.addAnimation(new FadingText(currentChain + "-chain!",
+                                       1050 + random(80), 620 + random(30),
+                                       30 + currentChain * 5,
+                                       color(230, 200, 0)));
       game.changeState(new FallingState(game, currentChain));
     } else if (game.board[1][2] != Puyo.NONE) {
       game.changeState(new FailState(game));
