@@ -1,12 +1,12 @@
 class Game {
   static final int WIDTH = 6;
-  static final int HEIGHT = 12;
+  static final int HEIGHT = 14;
   boolean paused = false;
   
   // Display data
   static final int puyoSize = 75;
   static final int BOARD_X = 600;
-  static final int BOARD_Y = 50;
+  static final int BOARD_Y = -100;
   static final int BOARD_WIDTH = puyoSize * WIDTH;
   static final int BOARD_HEIGHT = puyoSize * HEIGHT;
   
@@ -76,7 +76,7 @@ class Game {
     background(0);
     rectMode(CORNER);
     fill(240);
-    rect(BOARD_X, BOARD_Y, BOARD_WIDTH, BOARD_HEIGHT); // Main rectangle
+    rect(BOARD_X, BOARD_Y+puyoSize*2, BOARD_WIDTH, BOARD_HEIGHT-puyoSize*2); // Main rectangle
   
     //rect(1200, 50, 200, 100);
     stroke(0,0,0);
@@ -122,8 +122,8 @@ class Game {
         break;
       }
       
-      displayPuyo(pair[0], WIDTH + 0.5 + i * 1.5, 2.5 + i * 0.8);
-      displayPuyo(pair[1], WIDTH + 0.5 + i * 1.5, 1.5 + i * 0.8);
+      displayPuyo(pair[0], WIDTH + 0.5 + i * 1.5, 4.5 + i * 0.8);
+      displayPuyo(pair[1], WIDTH + 0.5 + i * 1.5, 3.5 + i * 0.8);
       
       i++;
     }

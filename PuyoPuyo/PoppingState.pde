@@ -29,7 +29,7 @@ class PoppingState extends State {
                                        1050 + random(80), 620 + random(30),
                                        30 + currentChain * 5,
                                        color(230, 200, 0)));
-    } else if (game.board[1][2] != Puyo.NONE) {
+    } else if (game.board[2][2] != Puyo.NONE) {
       game.changeState(new FailState(game));
     } else {
       game.changeState(new NewPuyoState(game));
