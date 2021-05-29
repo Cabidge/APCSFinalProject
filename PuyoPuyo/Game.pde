@@ -141,30 +141,45 @@ class Game {
     state.onMousePressed();
   }
   
+  /**
+   * Draws a Puyo with respect to the board and with fill color based on the type.
+   */
   void displayPuyo(int type, float x, float y) {
     displayPuyo(type, x, y, 1);
   }
   
-  void displayPuyo(int type, float x, float y, float outlineThickness) {
+  /**
+   * Draws a Puyo with respect to the board and with fill color based on the type
+   * and has option for stroke thickness
+   */
+  void displayPuyo(int type, float x, float y, float strokeWeight) {
     float centerX = (x+0.5) * puyoSize + BOARD_X;
     float centerY = (y+0.5) * puyoSize+BOARD_Y;
     
-    fill(colorOfPuyo(type));
+    drawPuyo(colorOfPuyo(type), centerX, centerY, puyoSize, strokeWeight);
+  }
+  
+  /**
+   * Draws a Puyo without any regards to the board or default Puyo size
+   * Useful for when not drawing on the board.
+   */
+  void drawPuyo(color c, float x, float y, float size, float strokeWeight) {
+    fill(c);
     stroke(0);
-    strokeWeight(outlineThickness);
-    circle(centerX, centerY, puyoSize);
+    strokeWeight(strokeWeight);
+    circle(x, y, size);
     
     // Eyes
     strokeWeight(1);
     fill(255);
-    float eyeHeight = centerY - puyoSize * 0.02;
-    float eyeOffset = puyoSize * 0.22;
-    circle(centerX - eyeOffset, eyeHeight, puyoSize * 0.42);
-    circle(centerX + eyeOffset, eyeHeight, puyoSize * 0.42);
+    float eyeHeight = y - size * 0.02;
+    float eyeOffset = size * 0.22;
+    circle(x - eyeOffset, eyeHeight, size * 0.42);
+    circle(x + eyeOffset, eyeHeight, size * 0.42);
     // Pupil
-    fill(lerpColor(colorOfPuyo(type), color(0), 0.24));
-    circle(centerX - eyeOffset + 1, eyeHeight - 1, puyoSize * 0.24);
-    circle(centerX + eyeOffset - 1, eyeHeight - 1, puyoSize * 0.24);
+    fill(lerpColor(c, color(0), 0.24));
+    circle(x - eyeOffset + 1, eyeHeight - 1, size * 0.24);
+    circle(x + eyeOffset - 1, eyeHeight - 1, size * 0.24);
   }
   
   void drawConnection(int type, int fromX, int fromY, int toX, int toY) {

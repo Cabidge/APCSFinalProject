@@ -1,30 +1,34 @@
 class PoppingState extends State {
   static final int MIN_POP_SIZE = 4;
+  static final float POPPING_TIME = 0.1;
   Queue<int[]> frontier;
   List<int[]> poppedGroup;
   
+  List<int[]> allPopped;
+  
   int currentChain;
+  
+  float timeElapsed;
   
   PoppingState(Game game, int currentChain) {
     super(game);
     this.currentChain = currentChain + 1;
     frontier = new ArrayDeque<int[]>();
     poppedGroup = new ArrayList<int[]>();
+    allPopped = new ArrayList<int[]>();
   }
   
   void onEnter() {
-    boolean anyPopped = false;
     for (int row = 0; row < Game.HEIGHT; row++) {
       for (int col = 0; col < Game.WIDTH; col++) {
-        anyPopped = tryFloodPop(col, row) || anyPopped;
+        tryFloodPop(col, row);
       }
     }
-    if (anyPopped) {
+    if (allPopped.size() > 0) {
       game.addAnimation(new FadingText(currentChain + "-chain!",
                                        1050 + random(80), 620 + random(30),
                                        30 + currentChain * 5,
                                        color(230, 200, 0)));
-      game.changeState(new FallingState(game, currentChain));
     } else if (game.board[1][2] != Puyo.NONE) {
       game.changeState(new FailState(game));
     } else {
@@ -33,11 +37,24 @@ class PoppingState extends State {
   }
   
   void onUpdate(float delta) {
+    if (timeElapsed >= POPPING_TIME) {
+      game.changeState(new FallingState(game, currentChain));
+      game.addScore(allPopped.size() * currentChain);
+      return;
+    }
     
+    timeElapsed += delta;
   }
   
   void onDisplay() {
     game.displayBack();
+    
+    for (int[] pos : allPopped) {
+      float x = (pos[0]+0.5) * Game.puyoSize + Game.BOARD_X;
+      float y = (pos[1]+0.5) * Game.puyoSize + Game.BOARD_Y;
+      game.drawPuyo(color(255), x, y, Game.puyoSize, 1);
+    }
+    
     game.displayOverlay();
   }
   
@@ -81,7 +98,9 @@ class PoppingState extends State {
       }
       return false;
     } else {
-      game.addScore(poppedGroup.size() * currentChain);
+      for (int[] pos : poppedGroup) {
+        allPopped.add(pos);
+      }
       return true;
     }
   }
