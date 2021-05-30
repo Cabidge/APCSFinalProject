@@ -1,5 +1,5 @@
 class NewPuyoState extends State {
-  static final float STEEPNESS = 0.4; // a magical constant in a formula
+  static final float STEEPNESS = 0.1; // a magical constant in a formula
   static final float MIN_IDLE_FALL_SPEED = 0.1;
   static final float MAX_IDLE_FALL_SPEED = 2;
   static final float MAX_FALL_SPEED = 12;
