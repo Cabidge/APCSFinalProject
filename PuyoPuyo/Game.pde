@@ -1,4 +1,7 @@
 class Game {
+  static final int GROUPS_POPPED_PER_LEVEL = 4;
+  int groupsPopped;
+  
   static final float TIME_START = 30.0;
   boolean timeActive;
   private float timeLeft;
@@ -243,26 +246,13 @@ class Game {
   }
   
   int getLevel() {
-    return score / 100 + 1;
+    return groupsPopped / GROUPS_POPPED_PER_LEVEL + 1;
   }
   
   void displayLevel() {
     fill(255);
     textAlign(LEFT);
-    text("level: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-40);
-    
-    rectMode(CORNER);
-    fill(20);
-    stroke(255);
-    strokeWeight(1);
-    int progressLength = 400;
-    int progressHeight = 20;
-    rect(BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-progressHeight,
-         progressLength, progressHeight);
-    
-    fill(255);
-    noStroke();
-    rect(BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-progressHeight,
-         progressLength * ((score % 100) / 100.0), progressHeight);
+    textSize(32);
+    text("level: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-16);
   }
 }

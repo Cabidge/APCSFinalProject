@@ -37,6 +37,7 @@ class PoppingState extends State {
     if (timeElapsed >= POPPING_TIME) {
       game.changeState(new FallingState(game, currentChain));
       game.addScore(calculateScore(totalPuyoPopped, currentChain, poppedGroups.size()));
+      game.groupsPopped += poppedGroups.size();
       return;
     }
     
