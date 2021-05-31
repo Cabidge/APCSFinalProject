@@ -4,6 +4,8 @@ class NewPuyoState extends State {
   static final float MAX_IDLE_FALL_SPEED = 2;
   static final float MAX_FALL_SPEED = 12;
   
+  private float pivotSpriteX; // Used for smooth animation
+  
   // Pivot location
   private int pivotX;
   private float pivotY; // Allows moving by half steps instead of only full tiles
@@ -27,6 +29,7 @@ class NewPuyoState extends State {
     
     pivotX = 2;
     pivotY = 1;
+    pivotSpriteX = pivotX;
     
     minorX = 0;
     minorY = -1;
@@ -60,10 +63,13 @@ class NewPuyoState extends State {
   }
   
   void onDisplay() {
+    // Not perfectly linear, but at high enough fps's this should look fairly normal
+    pivotSpriteX = lerp(pivotSpriteX, pivotX, 0.9);
+    
     game.displayBack();
     displayHint();
-    game.displayPuyo(pairTypes[1], pivotX+minorX, pivotY+minorY);
-    game.displayPuyo(pairTypes[0], pivotX, pivotY, 3);
+    game.displayPuyo(pairTypes[1], pivotSpriteX+minorX, pivotY+minorY);
+    game.displayPuyo(pairTypes[0], pivotSpriteX, pivotY, 3);
     game.displayOverlay();
   }
   
