@@ -6,8 +6,6 @@ Game game;
 void setup() {
   fullScreen();
   game = new Game();
-  game.background = loadImage("PuyoPuyoBackground.jpeg");
-  game.boardBackground = loadImage("BoardBackground.jpeg");
   //frameRate(30);
   //size(1920, 1080);
 }

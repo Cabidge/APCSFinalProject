@@ -12,9 +12,11 @@ class TitleState extends State {
   }
   
   void onDisplay() {
-    background(0);
-    textSize(90);
-    fill(0,255,255);
+    game.titleBackground.resize(displayWidth, displayHeight);
+    background(game.titleBackground); // main background (in title)
+    //background(0);
+    textSize(100);
+    fill(202, 3, 252);
     textAlign(CENTER, CENTER);
     text("GAME MODE", width/2, 200);
     

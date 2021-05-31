@@ -11,6 +11,8 @@ class Game {
   boolean paused = false;
   PImage background;
   PImage boardBackground;
+  PImage titleBackground;
+  PImage controlBackground;
   
   // Display data
   static final int puyoSize = 75;
@@ -32,6 +34,11 @@ class Game {
   
   Game() {
     timeLeft = TIME_START;
+    background = loadImage("PuyoPuyoBackground.jpeg");
+    boardBackground = loadImage("BoardBackground.jpeg");
+    //titleBackground = loadImage("TitleBackground.jpeg");
+    titleBackground = loadImage("TitleBackground2.jpeg");
+    controlBackground = loadImage("ControlBackground.jpeg");
     
     nextPairs = new ArrayDeque<int[]>();
     addRandomPair();
@@ -85,16 +92,16 @@ class Game {
   
   void displayBack() {
     background.resize(displayWidth, displayHeight);
-    background(background);
+    background(background); // main background (in game)
     //background(0);
     rectMode(CORNER);
     fill(240);
-    rect(BOARD_X, BOARD_Y+puyoSize*2, BOARD_WIDTH, BOARD_HEIGHT-puyoSize*2); // Main rectangle
+    //rect(BOARD_X, BOARD_Y+puyoSize*2, BOARD_WIDTH, BOARD_HEIGHT-puyoSize*2); // Main rectangle
     //rect(1200, 50, 200, 100);
     stroke(0,0,0);
     //Draw grid
-    boardBackground.resize(BOARD_WIDTH, BOARD_HEIGHT-puyoSize*2);
-    image(boardBackground, BOARD_X, BOARD_Y+puyoSize*2);
+    boardBackground.resize(450, 900); // board background
+    image(boardBackground, 600, 50);
     for (int x=0; x<WIDTH; x++) {
       for (int y=0; y<HEIGHT; y++) {
         int type = board[y][x];
@@ -223,8 +230,9 @@ class Game {
   void displayTime() {
     textAlign(CENTER);
     textSize(32);
-    fill(255);
-    text("Time Remaining: " + floor(timeLeft * 10) / 10.0, BOARD_X + BOARD_WIDTH/2, BOARD_Y + BOARD_HEIGHT + 32);
+    //rect(725, 960, 200, 50, 8,8,8,8);
+    fill(0);
+    text("TIME: " + floor(timeLeft * 10) / 10.0, BOARD_X + BOARD_WIDTH/2, BOARD_Y + BOARD_HEIGHT + 46);
   }
   
   void decreaseTime(float amount) {
