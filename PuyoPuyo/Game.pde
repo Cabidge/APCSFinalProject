@@ -13,6 +13,7 @@ class Game {
   PImage boardBackground;
   PImage titleBackground;
   PImage controlBackground;
+  PImage boardOutline;
   
   // Display data
   static final int puyoSize = 75;
@@ -39,6 +40,7 @@ class Game {
     //titleBackground = loadImage("TitleBackground.jpeg");
     titleBackground = loadImage("TitleBackground2.jpeg");
     controlBackground = loadImage("ControlBackground.jpeg");
+    boardOutline = loadImage("BoardOutline.png");
     
     nextPairs = new ArrayDeque<int[]>();
     addRandomPair();
@@ -102,6 +104,8 @@ class Game {
     //Draw grid
     boardBackground.resize(450, 900); // board background
     image(boardBackground, 600, 50);
+    boardOutline.resize(516, 964);
+    image(boardOutline, 567, 20);
     for (int x=0; x<WIDTH; x++) {
       for (int y=0; y<HEIGHT; y++) {
         int type = board[y][x];
