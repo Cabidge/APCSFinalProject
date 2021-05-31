@@ -9,6 +9,8 @@ class Game {
   static final int WIDTH = 6;
   static final int HEIGHT = 14;
   boolean paused = false;
+  PImage background;
+  PImage boardBackground;
   
   // Display data
   static final int puyoSize = 75;
@@ -66,7 +68,6 @@ class Game {
   
   void display() {
     state.onDisplay();
-    
     // Handle animations
     for (int i = animations.size()-1; i >=0; i--) {
       if (animations.get(i).isDone()) {
@@ -77,19 +78,23 @@ class Game {
     }
   }
   
+  
   void addAnimation(Animation anim) {
     animations.add(anim);
   }
   
   void displayBack() {
-    background(0);
+    background.resize(displayWidth, displayHeight);
+    background(background);
+    //background(0);
     rectMode(CORNER);
     fill(240);
     rect(BOARD_X, BOARD_Y+puyoSize*2, BOARD_WIDTH, BOARD_HEIGHT-puyoSize*2); // Main rectangle
-  
     //rect(1200, 50, 200, 100);
     stroke(0,0,0);
     //Draw grid
+    boardBackground.resize(BOARD_WIDTH, BOARD_HEIGHT-puyoSize*2);
+    image(boardBackground, BOARD_X, BOARD_Y+puyoSize*2);
     for (int x=0; x<WIDTH; x++) {
       for (int y=0; y<HEIGHT; y++) {
         int type = board[y][x];
@@ -119,7 +124,7 @@ class Game {
     
     if (paused) {
       textSize(80);
-      fill(255);
+      fill(255,0,0);
       text("PAUSED" , 100, 200);
     }
     
@@ -252,9 +257,12 @@ class Game {
   }
   
   void displayLevel() {
-    fill(255);
+    fill(0,255,255);
     textAlign(LEFT);
     textSize(32);
-    text("level: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-16);
+    //text("LEVEL: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-16); original location
+    text("LEVEL", BOARD_X+800, BOARD_Y+180);
+    fill(255);
+    text(getLevel(), BOARD_X+800, BOARD_Y+230);
   }
 }
