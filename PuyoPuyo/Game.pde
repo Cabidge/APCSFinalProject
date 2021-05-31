@@ -2,7 +2,7 @@ class Game {
   static final int GROUPS_POPPED_PER_LEVEL = 4;
   int groupsPopped;
   
-  static final float TIME_START = 30.0;
+  static final float TIME_START = 120.0;
   boolean timeActive;
   private float timeLeft;
   
