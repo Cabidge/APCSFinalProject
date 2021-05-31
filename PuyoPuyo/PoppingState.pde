@@ -1,6 +1,7 @@
 class PoppingState extends State {
   static final int MIN_POP_SIZE = 4;
   static final float POPPING_TIME = 0.1;
+  static final int FULL_CLEAR_SCORE = 5000;
   
   List<List<int[]>> poppedGroups;
   int totalPuyoPopped;
@@ -21,6 +22,7 @@ class PoppingState extends State {
         tryFloodPop(col, row);
       }
     }
+    
     if (poppedGroups.size() > 0) {
       game.addAnimation(new FadingText(currentChain + "-chain!",
                                        1050 + random(80), 620 + random(30),
@@ -42,10 +44,32 @@ class PoppingState extends State {
       if (game.timeActive) {
         game.timeLeft += rawScore / 50.0;
       }
+      
+      if (isFullClear()) {
+        Animation fullClearAnim = new FadingText(
+          "Full Clear!",
+          Game.BOARD_X + Game.BOARD_WIDTH/2,
+          Game.BOARD_Y + Game.BOARD_HEIGHT/2,
+          80, color(255,255,0)
+        ).withAlign(CENTER, CENTER);
+        game.addAnimation(fullClearAnim);
+        game.addScore(FULL_CLEAR_SCORE);
+      }
       return;
     }
     
     timeElapsed += delta;
+  }
+  
+  boolean isFullClear() {
+    for (int[] row : game.board) {
+      for (int puyo : row) {
+        if (puyo != Puyo.NONE) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
   
   /**
