@@ -24,10 +24,11 @@ class PoppingState extends State {
     }
     
     if (poppedGroups.size() > 0) {
-      game.addAnimation(new FadingText(currentChain + "-chain!",
-                                       1050 + random(80), 620 + random(30),
-                                       30 + currentChain * 5,
-                                       color(230, 200, 0)));
+      Animation chainAnimation = new FadingText(currentChain + "-chain!")
+        .withOrigin(1050 + random(80), 620 + random(30))
+        .withSize(30 + currentChain * 5)
+        .withColor(color(230, 200, 0));
+      game.addAnimation(chainAnimation);
     } else if (game.board[2][2] != Puyo.NONE || !game.hasTime()) {
       game.changeState(new FailState(game));
     } else {
@@ -46,12 +47,12 @@ class PoppingState extends State {
       }
       
       if (isFullClear()) {
-        Animation fullClearAnim = new FadingText(
-          "Full Clear!",
-          Game.BOARD_X + Game.BOARD_WIDTH/2,
-          Game.BOARD_Y + Game.BOARD_HEIGHT/2,
-          80, color(255,255,0)
-        ).withAlign(CENTER, CENTER);
+        Animation fullClearAnim = new FadingText("Full Clear!")
+          .withOrigin(Game.BOARD_X + Game.BOARD_WIDTH/2,
+                      Game.BOARD_Y + Game.BOARD_HEIGHT/2)
+          .withSize(80)
+          .withColor(color(255,255,0))
+          .withAlign(CENTER, CENTER);
         game.addAnimation(fullClearAnim);
         game.addScore(FULL_CLEAR_SCORE);
       }

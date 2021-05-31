@@ -235,7 +235,9 @@ class Game {
    */
   void addScore(int amount) {
     score += amount;
-    addAnimation(new FadingText("+" + amount, 1200 + random(-30, 30), 100 + random(10), 24));
+    addAnimation(new FadingText("+" + amount)
+                   .withOrigin(1200 + random(-30, 30), 100 + random(10))
+                   .withSize(24));
   }
   
   void changeState(State nextState) {

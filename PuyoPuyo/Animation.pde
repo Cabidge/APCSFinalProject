@@ -37,24 +37,45 @@ class FadingText extends Animation {
   private int alignX;
   private int alignY;
   
-  FadingText(String text, float x, float y, float size) {
-    this(text, x, y, size, color(255));
+  FadingText(String text) {
+    this(text, 0.2);
   }
   
-  FadingText(String text, float x, float y, float size, color c) {
-    this(text, x, y, 0, -45, size, c, 0.2);
-  }
-  
-  FadingText(String text, float x, float y, float dx, float dy, float size, color c, float opaqueTime) {
+  FadingText(String text, float opaqueTime) {
     super(FADE_TIME + opaqueTime);
     this.text = text;
+    this.opaqueTime = opaqueTime;
+    
+    x = 0;
+    y = 0;
+    dx = 0;
+    dy = -45;
+    size = 24;
+    c = color(255);
+    alignX = LEFT;
+    alignY = BASELINE;
+  }
+  
+  FadingText withOrigin(float x, float y) {
     this.x = x;
     this.y = y;
-    this.dx = dx;
-    this.dy = dy;
+    return this;
+  }
+  
+  FadingText withVelocity(float x, float y) {
+    dx = x;
+    dy = y;
+    return this;
+  }
+  
+  FadingText withSize(float size) {
     this.size = size;
+    return this;
+  }
+  
+  FadingText withColor(color c) {
     this.c = c;
-    this.opaqueTime = opaqueTime;
+    return this;
   }
   
   FadingText withAlign(int alignX, int alignY) {
