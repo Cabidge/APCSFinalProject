@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 class Game {
   static final int GROUPS_POPPED_PER_LEVEL = 4;
   int groupsPopped;
@@ -9,11 +11,15 @@ class Game {
   static final int WIDTH = 6;
   static final int HEIGHT = 14;
   boolean paused = false;
+  
   PImage background;
   PImage boardBackground;
   PImage titleBackground;
   PImage controlBackground;
   PImage boardOutline;
+  
+  HashMap<String,SoundFile> soundMap;
+
   
   // Display data
   static final int puyoSize = 75;
@@ -33,14 +39,18 @@ class Game {
   
   int pmillis;
   
-  Game() {
+  Game(HashMap soundMap) {
     timeLeft = TIME_START;
+    
     background = loadImage("PuyoPuyoBackground.jpeg");
     boardBackground = loadImage("BoardBackground.jpeg");
     //titleBackground = loadImage("TitleBackground.jpeg");
     titleBackground = loadImage("TitleBackground2.jpeg");
     controlBackground = loadImage("ControlBackground.jpeg");
     boardOutline = loadImage("BoardOutline.png");
+    
+    
+    this.soundMap = soundMap;
     
     nextPairs = new ArrayDeque<int[]>();
     addRandomPair();
@@ -55,6 +65,11 @@ class Game {
     
     animations = new ArrayList<Animation>();
   }
+  
+  SoundFile getSound(String s){
+    return this.soundMap.get(s);
+  }
+  
   
   void update() {
     while (nextPairs.size() < 2) {
@@ -236,7 +251,7 @@ class Game {
     textSize(32);
     //rect(725, 960, 200, 50, 8,8,8,8);
     fill(0);
-    text("TIME: " + floor(timeLeft * 10) / 10.0, BOARD_X + BOARD_WIDTH/2, BOARD_Y + BOARD_HEIGHT + 46);
+    text("TIME: " + floor(timeLeft * 10) / 10.0, BOARD_X + BOARD_WIDTH/2, BOARD_Y + BOARD_HEIGHT + 76);
   }
   
   void decreaseTime(float amount) {

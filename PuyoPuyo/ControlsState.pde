@@ -66,6 +66,7 @@ class ControlsState extends State {
   
   void onMousePressed() {
     if (backButton.isSelected()) {
+      game.getSound("button").play();
       game.changeState(new TitleState(game));
     }
   }
