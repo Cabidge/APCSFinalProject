@@ -10,6 +10,10 @@ void setup() {
   soundMap.put("button", new SoundFile(this, "SELECT.wav"));
   soundMap.put("normalOpening", new SoundFile(this, "NormalOpening.wav"));
   soundMap.put("timerOpening", new SoundFile(this, "TimerOpening.wav"));
+  soundMap.put("fall", new SoundFile(this, "Fall.wav"));
+  soundMap.put("pop", new SoundFile(this, "Pop.wav"));
+  soundMap.put("levelUp", new SoundFile(this, "LevelUp.wav"));
+   
   game = new Game(soundMap);
   //frameRate(30);
   //size(1920, 1080);

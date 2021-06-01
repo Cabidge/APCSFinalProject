@@ -29,6 +29,7 @@ class PoppingState extends State {
         .withSize(30 + currentChain * 5)
         .withColor(color(230, 200, 0));
       game.addAnimation(chainAnimation);
+      game.getSound("pop").play();
     } else if (game.board[2][2] != Puyo.NONE || !game.hasTime()) {
       game.changeState(new FailState(game));
     } else {

@@ -101,7 +101,7 @@ class NewPuyoState extends State {
   
   void hardDrop() {
     int[] finalHeights = getFinalHeights();
-    
+    game.getSound("fall").play();
     game.board[finalHeights[0]][pivotX] = pairTypes[0];
     game.board[finalHeights[1]][pivotX+minorX] = pairTypes[1];
     game.addScore(2);
