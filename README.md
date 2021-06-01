@@ -43,13 +43,24 @@ Made controlling Puyo more forgiving, implemented chaining, and updated visuals.
 
 ## 5/28
 ### Wen Hao Dong
+Visual improvements (next Puyo display, level display, Popping indicator, and small animations). (~40 minutes)
+Made the game speed up as the player increases their level. (~20 minutes)
 
-### Tristan Pragnell 
+### Tristan Pragnell
 Added control page, title screen, confirmation dialogue (~1.5 hours)
 Added alternative keybinds
 
-## 5/31
+## 5/29
 ### Wen Hao Dong
+Added ability to hard drop and drop hints (~20 minutes)
+Started on timer mode (~15 minutes)
 
+## 5/30
+### Wen Hao Dong
+Balance changes and changed scoring system to match the official games' (~40 minutes)
+Finished implementing timer mode (~10 minutes)
+Smoothed out lateral movement animation for Puyo (~10 minutes)
+
+## 5/31
 ### Tristan Pragnell
 Created all backgrounds, board outline, and audio (~1.5 hours)
