@@ -197,6 +197,9 @@ class NewPuyoState extends State {
         && isEmptyTile(newX+minorX, newY+minorY)) {
       pivotX = newX;
       pivotY = newY;
+      if (dy == 0) {
+        game.getSound("move").play();
+      }
       return true;
     }
     
@@ -277,6 +280,7 @@ class NewPuyoState extends State {
    * and transitions to FallingState
    */
   void finalizePair() {
+    game.getSound("land").play();
     game.board[ceil(pivotY)][pivotX] = pairTypes[0];
     game.board[ceil(pivotY+minorY)][pivotX+minorX] = pairTypes[1];
     game.addScore(2);

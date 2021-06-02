@@ -14,6 +14,8 @@ void setup() {
   addSound("pop", "Pop.wav");
   addSound("levelUp", "LevelUp.wav");
   addSound("rotate", "Rotate.wav");
+  addSound("move", "Move.wav");
+  addSound("land", "Land.wav");
    
   game = new Game(soundMap);
   //frameRate(30);
