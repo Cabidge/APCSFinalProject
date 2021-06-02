@@ -42,7 +42,7 @@ class PoppingState extends State {
       game.changeState(new FallingState(game, currentChain));
       int rawScore = calculateScore(totalPuyoPopped, currentChain, poppedGroups.size());
       game.addScore(game.getLevel() * rawScore);
-      game.groupsPopped += poppedGroups.size();
+      game.addGroupsPopped(poppedGroups.size());
       if (game.timeActive) {
         game.timeLeft += rawScore / 50.0;
       }

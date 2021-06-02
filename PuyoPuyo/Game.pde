@@ -2,7 +2,7 @@ import processing.sound.*;
 
 class Game {
   static final int GROUPS_POPPED_PER_LEVEL = 4;
-  int groupsPopped;
+  private int groupsPopped;
   
   static final float TIME_START = 120.0;
   boolean timeActive;
@@ -281,6 +281,18 @@ class Game {
   
   int getLevel() {
     return groupsPopped / GROUPS_POPPED_PER_LEVEL + 1;
+  }
+  
+  void addGroupsPopped(int amount) {
+    int levelBefore = getLevel();
+    groupsPopped += amount;
+    if (getLevel() > levelBefore) {
+      onLevelUp();
+    }
+  }
+  
+  void onLevelUp() {
+    
   }
   
   void displayLevel() {
