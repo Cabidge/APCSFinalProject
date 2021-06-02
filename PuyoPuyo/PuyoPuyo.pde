@@ -10,7 +10,6 @@ void setup() {
   addSound("button", "SELECT.wav");
   addSound("normalOpening", "NormalOpening.wav");
   addSound("timerOpening", "TimerOpening.wav");
-  addSound("fall", "Fall.wav");
   addSound("pop", "Pop.wav");
   addSound("levelUp", "LevelUp.wav");
   addSound("rotate", "Rotate.wav");
