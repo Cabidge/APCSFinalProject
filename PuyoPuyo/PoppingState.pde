@@ -1,6 +1,6 @@
 class PoppingState extends State {
   static final int MIN_POP_SIZE = 4;
-  static final float POPPING_TIME = 0.1;
+  static final float POPPING_TIME = 0.3;
   static final int FULL_CLEAR_SCORE = 5000;
   
   List<List<int[]>> poppedGroups;
@@ -10,6 +10,9 @@ class PoppingState extends State {
   
   float timeElapsed;
   
+  PImage beforePop;
+  PImage afterPop;
+  
   PoppingState(Game game, int currentChain) {
     super(game);
     this.currentChain = currentChain + 1;
@@ -17,6 +20,8 @@ class PoppingState extends State {
   }
   
   void onEnter() {
+    beforePop = game.createBoardGraphics();
+    
     for (int row = 0; row < Game.HEIGHT; row++) {
       for (int col = 0; col < Game.WIDTH; col++) {
         tryFloodPop(col, row);
@@ -24,6 +29,8 @@ class PoppingState extends State {
     }
     
     if (poppedGroups.size() > 0) {
+      afterPop = game.createBoardGraphics();
+      
       Animation chainAnimation = new FadingText(currentChain + "-chain!")
         .withOrigin(1050 + random(80), 620 + random(30))
         .withSize(30 + currentChain * 5)
@@ -121,17 +128,15 @@ class PoppingState extends State {
   
   void onDisplay() {
     game.displayBack();
-    game.displayBoard();
     
-    for (List<int[]> group : poppedGroups) {
-      for (int[] pos : group) {
-        float x = (pos[0]+0.5) * Game.puyoSize + Game.BOARD_X;
-        float y = (pos[1]+0.5) * Game.puyoSize + Game.BOARD_Y;
-        game.drawPuyo(color(255), x, y, Game.puyoSize, 1);
-      }
-    }
+    PImage boardImg = (showPreviousBoard()) ? beforePop : afterPop;
+    image(boardImg, Game.BOARD_X, Game.BOARD_Y);
     
     game.displayOverlay();
+  }
+  
+  boolean showPreviousBoard() {
+    return millis() % 2 == 0;
   }
   
   /**
