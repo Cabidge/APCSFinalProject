@@ -24,9 +24,9 @@ class Game {
   // Display data
   static final int puyoSize = 75;
   static final int BOARD_X = 600;
-  static final int BOARD_Y = -100;
+  static final int BOARD_Y = 50;
   static final int BOARD_WIDTH = puyoSize * WIDTH;
-  static final int BOARD_HEIGHT = puyoSize * HEIGHT;
+  static final int BOARD_HEIGHT = puyoSize * (HEIGHT - 2);
   
   private State state;
   
@@ -44,6 +44,7 @@ class Game {
     
     background = loadImage("PuyoPuyoBackground.jpeg");
     boardBackground = loadImage("BoardBackground.jpeg");
+    boardBackground.resize(BOARD_WIDTH, BOARD_HEIGHT);
     //titleBackground = loadImage("TitleBackground.jpeg");
     titleBackground = loadImage("TitleBackground2.jpeg");
     controlBackground = loadImage("ControlBackground.jpeg");
@@ -117,10 +118,10 @@ class Game {
     //rect(1200, 50, 200, 100);
     stroke(0,0,0);
     //Draw grid
-    boardBackground.resize(450, 900); // board background
-    image(boardBackground, 600, 50);
+    image(createBoardGraphics(), BOARD_X, BOARD_Y);
     boardOutline.resize(516, 964);
     image(boardOutline, 567, 20);
+    /*
     for (int x=0; x<WIDTH; x++) {
       for (int y=0; y<HEIGHT; y++) {
         int type = board[y][x];
@@ -135,6 +136,44 @@ class Game {
         }
       }
     }
+    */
+  }
+  
+  PGraphics createBoardGraphics() {
+    PGraphics pg = createGraphics(BOARD_WIDTH, BOARD_HEIGHT);
+    pg.beginDraw();
+    pg.image(boardBackground,0,0);
+    for (int row = 2; row < HEIGHT; row++) {
+      for (int col = 0; col < WIDTH; col++) {
+        if (board[row][col] != Puyo.NONE) {
+          pg.image(puyoImage(board[row][col], neighborValueOf(row, col)),
+                   col * puyoSize, row * puyoSize - puyoSize * 2 + 4);
+        }
+      }
+    }
+    pg.endDraw();
+    return pg;
+  }
+  
+  int neighborValueOf(int row, int col) {
+    int type = board[row][col];
+    if (type == Puyo.NONE) {
+      return 0;
+    }
+    int val = 0;
+    val += (puyoAt(row + 1, col) == type) ? 1 : 0;
+    val += (puyoAt(row - 1, col) == type) ? 2 : 0;
+    val += (puyoAt(row, col + 1) == type) ? 4 : 0;
+    val += (puyoAt(row, col - 1) == type) ? 8 : 0;
+    return val;
+  }
+  
+  int puyoAt(int row, int col) {
+    if (row < 0 || row >= HEIGHT ||
+        col < 0 || col >= WIDTH) {
+      return Puyo.NONE;
+    }
+    return board[row][col];
   }
   
   void displayOverlay() {
@@ -224,17 +263,6 @@ class Game {
     fill(lerpColor(c, color(0), 0.24));
     circle(x - eyeOffset + 1, eyeHeight - 1, size * 0.24);
     circle(x + eyeOffset - 1, eyeHeight - 1, size * 0.24);
-  }
-  
-  void drawConnection(int type, int fromX, int fromY, int toX, int toY) {
-    float p = 0.15;
-    
-    strokeWeight(1);
-    stroke(0);
-    fill(colorOfPuyo(type));
-    rectMode(CORNERS);
-    rect(fromX * puyoSize + BOARD_X + puyoSize * p, fromY * puyoSize + BOARD_Y + puyoSize * p,
-         toX * puyoSize + BOARD_X + puyoSize * (1 - p), toY * puyoSize + BOARD_Y + puyoSize * (1 - p));
   }
 
   void displayScore(){

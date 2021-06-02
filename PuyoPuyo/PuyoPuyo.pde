@@ -18,7 +18,12 @@ void setup() {
   addSound("move", "Move.wav");
   addSound("land", "Land.wav");
   
-  puyoSprites = divideImage(loadImage("puyo_aqua.png"), 72, 72);
+  puyoSprites = divideImage(loadImage("puyo_aqua.png"), 68, 68, 4, 4);
+  for (PImage[] row : puyoSprites) {
+    for (PImage img : row) {
+      img.resize(Game.puyoSize + 4, 0);
+    }
+  }
    
   game = new Game(soundMap);
   //frameRate(30);
@@ -52,13 +57,15 @@ void mousePressed() {
   game.mousePressed();
 }
 
-PImage[][] divideImage(PImage source, int w, int h) {
-  int cols = source.width / w;
-  int rows = source.height / h;
+PImage[][] divideImage(PImage source, int w, int h, int padX, int padY) {
+  int dx = w+padX;
+  int dy = h+padY;
+  int cols = source.width / dx;
+  int rows = source.height / dy;
   PImage[][] sheet = new PImage[rows][cols];
   for (int c = 0; c < cols; c++) {
     for (int r = 0; r < rows; r++) {
-      sheet[r][c] = source.get(c * w, r * h, w, h);
+      sheet[r][c] = source.get(c * dx, r * dy, w, h);
     }
   }
   return sheet;

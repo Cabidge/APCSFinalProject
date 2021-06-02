@@ -23,9 +23,9 @@ class NewPuyoState extends State {
   float bufferTimer;
   float stallHeight;
   int stallCount;
-   //<>// //<>//
+   //<>//
   NewPuyoState(Game game) {
-    super(game); //<>// //<>// //<>//
+    super(game); //<>// //<>//
     
     pivotX = 2;
     pivotY = 1;
@@ -82,7 +82,7 @@ class NewPuyoState extends State {
   void displayHintAt(int type, int x, int y) {
     fill(colorOfPuyo(type));
     circle((x + 0.5) * Game.puyoSize + Game.BOARD_X,
-           (y + 0.5) * Game.puyoSize + Game.BOARD_Y,
+           (y - 1.5) * Game.puyoSize + Game.BOARD_Y,
            Game.puyoSize / 3);
   }
   
