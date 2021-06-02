@@ -9,14 +9,14 @@ class NewPuyoState extends State {
   private PImage pivotHighlightSprite;
   private PImage minorSprite;
   private float pivotSpriteX; // Used for smooth animation
+  private float minorSpriteAngle;
   
   // Pivot location
   private int pivotX;
   private float pivotY; // Allows moving by half steps instead of only full tiles
   
   // The offset from pivot of the other Puyo
-  private int minorX;
-  private int minorY;
+  private int minorAngle; // 1 == 90 degrees, 2 == 180 degrees
   
   //[0] = pivot, [1] = minor
   private int[] pairTypes;
@@ -35,8 +35,8 @@ class NewPuyoState extends State {
     pivotY = 1;
     pivotSpriteX = pivotX;
     
-    minorX = 0;
-    minorY = -1;
+    minorAngle = -1;
+    minorSpriteAngle = minorAngle;
     
     pairTypes = game.nextPair();
     pivotSprite = puyoImage(pairTypes[0]);
@@ -72,6 +72,7 @@ class NewPuyoState extends State {
   void onDisplay() {
     // Not perfectly linear, but at high enough fps's this should look fairly normal
     pivotSpriteX = lerp(pivotSpriteX, pivotX, 0.6);
+    minorSpriteAngle = lerp(minorSpriteAngle, minorAngle, 0.6);
     
     game.displayBack();
     
@@ -80,7 +81,9 @@ class NewPuyoState extends State {
     
     drawHints(boardGraphics);
     
-    drawRelativeImage(boardGraphics, minorSprite, pivotSpriteX+minorX, pivotY+minorY);
+    drawRelativeImage(boardGraphics, minorSprite,
+                      pivotSpriteX+minorX(minorSpriteAngle),
+                      pivotY+minorY(minorSpriteAngle));
     drawRelativeImage(boardGraphics, currentPivotSprite(), pivotSpriteX, pivotY);
     
     boardGraphics.endDraw();
@@ -101,7 +104,7 @@ class NewPuyoState extends State {
   void drawHints(PGraphics pg) {
     int[] finalHeights = getFinalHeights();
     drawHintAt(pg, pairTypes[0], pivotX, finalHeights[0]);
-    drawHintAt(pg, pairTypes[1], pivotX+minorX, finalHeights[1]);
+    drawHintAt(pg, pairTypes[1], pivotX+minorX(), finalHeights[1]);
   }
   
   void drawHintAt(PGraphics pg, int type, int x, int y) {
@@ -110,15 +113,15 @@ class NewPuyoState extends State {
   }
   
   int[] getFinalHeights() {
-    if (minorX == 0) { // vertical
+    if (isPairVertical()) { // vertical
       int top = topOfColumn(pivotX);
-      if (minorY == -1) { // minor above
+      if (minorY() == -1) { // minor above
         return new int[]{top, top-1};
       } else { // pivot above
         return new int[]{top-1, top};
       }
     } else {
-      return new int[]{topOfColumn(pivotX), topOfColumn(pivotX + minorX)};
+      return new int[]{topOfColumn(pivotX), topOfColumn(pivotX + minorX())};
     }
   }
   
@@ -126,7 +129,7 @@ class NewPuyoState extends State {
     int[] finalHeights = getFinalHeights();
     game.getSound("land").play();
     game.board[finalHeights[0]][pivotX] = pairTypes[0];
-    game.board[finalHeights[1]][pivotX+minorX] = pairTypes[1];
+    game.board[finalHeights[1]][pivotX+minorX()] = pairTypes[1];
     game.addScore(2);
     game.changeState(new PoppingState(game, 0));
   }
@@ -217,7 +220,7 @@ class NewPuyoState extends State {
     float newY = pivotY + dy;
     
     if (isEmptyTile(newX, newY)
-        && isEmptyTile(newX+minorX, newY+minorY)) {
+        && isEmptyTile(newX+minorX(), newY+minorY())) {
       pivotX = newX;
       pivotY = newY;
       if (dy == 0) {
@@ -250,33 +253,30 @@ class NewPuyoState extends State {
    */
   boolean rotate(int dir) {
     // 90 degree rotation transformation from geometry!
-    int newMinorY = minorX * dir;
-    int newMinorX = minorY * -dir;
+    int newAngle = minorAngle + dir;
+    int newMinorX = minorX(newAngle);
+    int newMinorY = minorY(newAngle);
     
     if (isEmptyTile(pivotX + newMinorX, pivotY + newMinorY)) {
-      minorX = newMinorX;
-      minorY = newMinorY;
+      minorAngle = newAngle;
       stall();
       game.getSound("rotate").play();
       return true;
     }
     
-    if (minorX == 0) { // was vertical
+    if (isPairVertical()) { // was vertical
       if (isEmptyTile(pivotX - newMinorX, pivotY)) { // Wall nudge
-        minorX = newMinorX;
-        minorY = newMinorY;
+        minorAngle = newAngle;
         pivotX -= newMinorX;
       } else { // Column flip
-        pivotY += minorY;
-        minorY = -minorY;
+        minorAngle += 2;
       }
       stall();
       game.getSound("rotate").play();
       return true;
     } else if (newMinorY == 1 && isEmptyTile(pivotX, pivotY - 1)
                && stallCount < MAX_STALL_COUNT /* anti-stall */) { // Floor lifr
-      minorX = newMinorX;
-      minorY = newMinorY;
+      minorAngle = newAngle;
       pivotY = ceil(pivotY-1);
       stall();
       game.getSound("rotate").play();
@@ -305,8 +305,48 @@ class NewPuyoState extends State {
   void finalizePair() {
     game.getSound("land").play();
     game.board[ceil(pivotY)][pivotX] = pairTypes[0];
-    game.board[ceil(pivotY+minorY)][pivotX+minorX] = pairTypes[1];
+    game.board[ceil(pivotY+minorY())][pivotX+minorX()] = pairTypes[1];
     game.addScore(2);
     game.changeState(new FallingState(game));
+  }
+  
+  int minorX() {
+    return minorX(minorAngle);
+  }
+  
+  int minorX(int angle) {
+    if (angle % 2 != 0) {
+      return 0;
+    } else if (angle % 4 == 0) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+  
+  boolean isPairVertical() {
+    return minorAngle % 2 != 0;
+  }
+  
+  float minorX(float angle) {
+    return cos(angle * PI / 2);
+  }
+  
+  int minorY() {
+    return minorY(minorAngle);
+  }
+  
+  int minorY(int angle) {
+    if (angle % 2 == 0) {
+      return 0;
+    } else if ((angle + 1) % 4 == 0) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
+  
+  float minorY(float angle) {
+    return sin(angle * PI / 2);
   }
 }
