@@ -231,6 +231,7 @@ class NewPuyoState extends State {
       minorX = newMinorX;
       minorY = newMinorY;
       stall();
+      game.getSound("rotate").play();
       return true;
     }
     
@@ -239,20 +240,20 @@ class NewPuyoState extends State {
         minorX = newMinorX;
         minorY = newMinorY;
         pivotX -= newMinorX;
-        stall();
-        return true;
       } else { // Column flip
         pivotY += minorY;
         minorY = -minorY;
-        stall();
-        return true;
       }
+      stall();
+      game.getSound("rotate").play();
+      return true;
     } else if (newMinorY == 1 && isEmptyTile(pivotX, pivotY - 1)
                && stallCount < MAX_STALL_COUNT /* anti-stall */) { // Floor lifr
       minorX = newMinorX;
       minorY = newMinorY;
       pivotY = ceil(pivotY-1);
       stall();
+      game.getSound("rotate").play();
       return true;
     }
     

@@ -13,6 +13,7 @@ void setup() {
   soundMap.put("fall", new SoundFile(this, "Fall.wav"));
   soundMap.put("pop", new SoundFile(this, "Pop.wav"));
   soundMap.put("levelUp", new SoundFile(this, "LevelUp.wav"));
+  soundMap.put("rotate", new SoundFile(this, "Rotate.wav"));
    
   game = new Game(soundMap);
   //frameRate(30);
