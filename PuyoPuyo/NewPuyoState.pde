@@ -78,6 +78,8 @@ class NewPuyoState extends State {
     PGraphics boardGraphics = game.createBoardGraphics();
     boardGraphics.beginDraw();
     
+    drawHints(boardGraphics);
+    
     drawRelativeImage(boardGraphics, minorSprite, pivotSpriteX+minorX, pivotY+minorY);
     drawRelativeImage(boardGraphics, currentPivotSprite(), pivotSpriteX, pivotY);
     
@@ -85,7 +87,6 @@ class NewPuyoState extends State {
     
     image(boardGraphics, Game.BOARD_X, Game.BOARD_Y);
     
-    displayHint();
     game.displayOverlay();
   }
   
@@ -97,17 +98,15 @@ class NewPuyoState extends State {
     pg.image(img, x * Game.puyoSize, (y -2) * Game.puyoSize);
   }
   
-  void displayHint() {
+  void drawHints(PGraphics pg) {
     int[] finalHeights = getFinalHeights();
-    displayHintAt(pairTypes[0], pivotX, finalHeights[0]);
-    displayHintAt(pairTypes[1], pivotX+minorX, finalHeights[1]);
+    drawHintAt(pg, pairTypes[0], pivotX, finalHeights[0]);
+    drawHintAt(pg, pairTypes[1], pivotX+minorX, finalHeights[1]);
   }
   
-  void displayHintAt(int type, int x, int y) {
-    fill(colorOfPuyo(type));
-    circle((x + 0.5) * Game.puyoSize + Game.BOARD_X,
-           (y - 1.5) * Game.puyoSize + Game.BOARD_Y,
-           Game.puyoSize / 3);
+  void drawHintAt(PGraphics pg, int type, int x, int y) {
+    PImage hint = puyoSprites[6 + type / 2][14 + type % 2];
+    drawRelativeImage(pg, hint, x, y);
   }
   
   int[] getFinalHeights() {
