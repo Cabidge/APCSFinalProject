@@ -71,7 +71,7 @@ class NewPuyoState extends State {
   
   void onDisplay() {
     // Not perfectly linear, but at high enough fps's this should look fairly normal
-    pivotSpriteX = lerp(pivotSpriteX, pivotX, 0.9);
+    pivotSpriteX = lerp(pivotSpriteX, pivotX, 0.6);
     
     game.displayBack();
     
