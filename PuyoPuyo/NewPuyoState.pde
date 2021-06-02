@@ -4,6 +4,9 @@ class NewPuyoState extends State {
   static final float MAX_IDLE_FALL_SPEED = 2;
   static final float MAX_FALL_SPEED = 12;
   
+  private PImage pivotSprite;
+  private PImage pivotHighlightSprite;
+  private PImage minorSprite;
   private float pivotSpriteX; // Used for smooth animation
   
   // Pivot location
@@ -35,6 +38,9 @@ class NewPuyoState extends State {
     minorY = -1;
     
     pairTypes = game.nextPair();
+    pivotSprite = puyoImage(pairTypes[0]);
+    pivotHighlightSprite = puyoImageHighlight(pairTypes[0]);
+    minorSprite = puyoImage(pairTypes[1]);
     
     bufferTimer = 0.0;
     stallHeight = 0.0;
@@ -67,10 +73,23 @@ class NewPuyoState extends State {
     pivotSpriteX = lerp(pivotSpriteX, pivotX, 0.9);
     
     game.displayBack();
+    
+    PGraphics boardGraphics = game.createBoardGraphics();
+    boardGraphics.beginDraw();
+    
+    drawRelativeImage(boardGraphics, minorSprite, pivotSpriteX+minorX, pivotY+minorY);
+    drawRelativeImage(boardGraphics, pivotSprite, pivotSpriteX, pivotY);
+    
+    boardGraphics.endDraw();
+    
+    image(boardGraphics, Game.BOARD_X, Game.BOARD_Y);
+    
     displayHint();
-    game.displayPuyo(pairTypes[1], pivotSpriteX+minorX, pivotY+minorY);
-    game.displayPuyo(pairTypes[0], pivotSpriteX, pivotY, 3);
     game.displayOverlay();
+  }
+  
+  void drawRelativeImage(PGraphics pg, PImage img, float x, float y) {
+    pg.image(img, x * Game.puyoSize, (y -2) * Game.puyoSize);
   }
   
   void displayHint() {
