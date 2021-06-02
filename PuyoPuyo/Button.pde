@@ -41,6 +41,7 @@ class Button {
   }
   
   void display() {
+    noStroke();
     rectMode(CENTER);
     if (isSelected()) {
       fill(hColor);
