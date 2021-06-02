@@ -4,6 +4,7 @@ class NewPuyoState extends State {
   static final float MAX_IDLE_FALL_SPEED = 2;
   static final float MAX_FALL_SPEED = 12;
   
+  static final int MILLIS_PER_FLASHES = 800;
   private PImage pivotSprite;
   private PImage pivotHighlightSprite;
   private PImage minorSprite;
@@ -78,7 +79,7 @@ class NewPuyoState extends State {
     boardGraphics.beginDraw();
     
     drawRelativeImage(boardGraphics, minorSprite, pivotSpriteX+minorX, pivotY+minorY);
-    drawRelativeImage(boardGraphics, pivotSprite, pivotSpriteX, pivotY);
+    drawRelativeImage(boardGraphics, currentPivotSprite(), pivotSpriteX, pivotY);
     
     boardGraphics.endDraw();
     
@@ -86,6 +87,10 @@ class NewPuyoState extends State {
     
     displayHint();
     game.displayOverlay();
+  }
+  
+  PImage currentPivotSprite() {
+    return (millis() % MILLIS_PER_FLASHES < MILLIS_PER_FLASHES/2) ? pivotSprite : pivotHighlightSprite;
   }
   
   void drawRelativeImage(PGraphics pg, PImage img, float x, float y) {
