@@ -185,12 +185,14 @@ class Game {
   void displayNextPairs() {
     int i = 0;
     for (int[] pair : nextPairs) {
-      if (i > 2) { // Only show the first two
-        break;
-      }
+      PImage minor = puyoImage(pair[1]);
+      PImage pivot = puyoImage(pair[0]);
       
-      displayPuyo(pair[0], WIDTH + 0.5 + i * 1.5, 4.5 + i * 0.8);
-      displayPuyo(pair[1], WIDTH + 0.5 + i * 1.5, 3.5 + i * 0.8);
+      float centerX = BOARD_X + BOARD_WIDTH + 60 + (i * puyoSize * 1.2);
+      float centerY = BOARD_Y + 150 + (i * puyoSize * 1.2);
+      
+      image(minor, centerX, centerY);
+      image(pivot, centerX, centerY + puyoSize);
       
       i++;
     }
@@ -206,47 +208,6 @@ class Game {
   
   void mousePressed() {
     state.onMousePressed();
-  }
-  
-  /**
-   * Draws a Puyo with respect to the board and with fill color based on the type.
-   */
-  void displayPuyo(int type, float x, float y) {
-    displayPuyo(type, x, y, 1);
-  }
-  
-  /**
-   * Draws a Puyo with respect to the board and with fill color based on the type
-   * and has option for stroke thickness
-   */
-  void displayPuyo(int type, float x, float y, float strokeWeight) {
-    float centerX = (x+0.5) * puyoSize + BOARD_X;
-    float centerY = (y+0.5) * puyoSize+BOARD_Y;
-    
-    drawPuyo(colorOfPuyo(type), centerX, centerY, puyoSize, strokeWeight);
-  }
-  
-  /**
-   * Draws a Puyo without any regards to the board or default Puyo size
-   * Useful for when not drawing on the board.
-   */
-  void drawPuyo(color c, float x, float y, float size, float strokeWeight) {
-    fill(c);
-    stroke(0);
-    strokeWeight(strokeWeight);
-    circle(x, y, size);
-    
-    // Eyes
-    strokeWeight(1);
-    fill(255);
-    float eyeHeight = y - size * 0.02;
-    float eyeOffset = size * 0.22;
-    circle(x - eyeOffset, eyeHeight, size * 0.42);
-    circle(x + eyeOffset, eyeHeight, size * 0.42);
-    // Pupil
-    fill(lerpColor(c, color(0), 0.24));
-    circle(x - eyeOffset + 1, eyeHeight - 1, size * 0.24);
-    circle(x + eyeOffset - 1, eyeHeight - 1, size * 0.24);
   }
 
   void displayScore(){
@@ -312,8 +273,8 @@ class Game {
     textAlign(LEFT);
     textSize(32);
     //text("LEVEL: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-16); original location
-    text("LEVEL", BOARD_X+800, BOARD_Y+180);
+    text("LEVEL", BOARD_X+800, BOARD_Y+30);
     fill(255);
-    text(getLevel(), BOARD_X+800, BOARD_Y+230);
+    text(getLevel(), BOARD_X+800, BOARD_Y+80);
   }
 }
