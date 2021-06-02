@@ -292,7 +292,7 @@ class Game {
   }
   
   void onLevelUp() {
-    
+    game.getSound("levelUp").play();
   }
   
   void displayLevel() {
