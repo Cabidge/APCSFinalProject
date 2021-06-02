@@ -3,7 +3,9 @@ import javax.swing.JOptionPane;
 import java.util.Map;
 
 Game game;
-HashMap<String,SoundFile> soundMap = new HashMap<String,SoundFile>(); 
+HashMap<String,SoundFile> soundMap = new HashMap<String,SoundFile>();
+
+PImage[][] puyoSprites;
 
 void setup() {
   fullScreen();
@@ -15,6 +17,8 @@ void setup() {
   addSound("rotate", "Rotate.wav");
   addSound("move", "Move.wav");
   addSound("land", "Land.wav");
+  
+  puyoSprites = divideImage(loadImage("puyo_aqua.png"), 72, 72);
    
   game = new Game(soundMap);
   //frameRate(30);
@@ -46,4 +50,16 @@ void keyPressed() {
 
 void mousePressed() {
   game.mousePressed();
+}
+
+PImage[][] divideImage(PImage source, int w, int h) {
+  int cols = source.width / w;
+  int rows = source.height / h;
+  PImage[][] sheet = new PImage[rows][cols];
+  for (int c = 0; c < cols; c++) {
+    for (int r = 0; r < rows; r++) {
+      sheet[r][c] = source.get(c * w, r * h, w, h);
+    }
+  }
+  return sheet;
 }
