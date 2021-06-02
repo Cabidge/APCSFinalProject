@@ -7,6 +7,7 @@ class FailState extends State {
   
   void onDisplay() {
     game.displayBack();
+    game.displayBoard();
     game.displayOverlay();
     
     textAlign(LEFT);

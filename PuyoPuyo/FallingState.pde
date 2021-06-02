@@ -29,6 +29,7 @@ class FallingState extends State {
   
   void onDisplay() {
     game.displayBack();
+    game.displayBoard();
     game.displayOverlay();
   }
   

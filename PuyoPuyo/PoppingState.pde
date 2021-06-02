@@ -121,6 +121,7 @@ class PoppingState extends State {
   
   void onDisplay() {
     game.displayBack();
+    game.displayBoard();
     
     for (List<int[]> group : poppedGroups) {
       for (int[] pos : group) {
