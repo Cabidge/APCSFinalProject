@@ -43,12 +43,17 @@ class Game {
     timeLeft = TIME_START;
     
     background = loadImage("PuyoPuyoBackground.jpeg");
+    background.resize(displayWidth, displayHeight);
+    
     boardBackground = loadImage("BoardBackground.jpeg");
     boardBackground.resize(BOARD_WIDTH, BOARD_HEIGHT);
+    
     //titleBackground = loadImage("TitleBackground.jpeg");
     titleBackground = loadImage("TitleBackground2.jpeg");
     controlBackground = loadImage("ControlBackground.jpeg");
+    
     boardOutline = loadImage("BoardOutline.png");
+    boardOutline.resize(516, 964);
     
     
     this.soundMap = soundMap;
@@ -109,34 +114,11 @@ class Game {
   }
   
   void displayBack() {
-    background.resize(displayWidth, displayHeight);
     background(background); // main background (in game)
-    //background(0);
-    rectMode(CORNER);
-    fill(240);
-    //rect(BOARD_X, BOARD_Y+puyoSize*2, BOARD_WIDTH, BOARD_HEIGHT-puyoSize*2); // Main rectangle
-    //rect(1200, 50, 200, 100);
-    stroke(0,0,0);
-    //Draw grid
+  }
+  
+  void displayBoard() {
     image(createBoardGraphics(), BOARD_X, BOARD_Y);
-    boardOutline.resize(516, 964);
-    image(boardOutline, 567, 20);
-    /*
-    for (int x=0; x<WIDTH; x++) {
-      for (int y=0; y<HEIGHT; y++) {
-        int type = board[y][x];
-        if (type != Puyo.NONE) {
-          if (x < WIDTH - 1 && board[y][x+1] == type) {
-            drawConnection(type, x, y, x + 1, y);
-          }
-          if (y < HEIGHT - 1 && board[y+1][x] == type) {
-            drawConnection(type, x, y, x, y + 1);
-          }
-          displayPuyo(type, x, y);
-        }
-      }
-    }
-    */
   }
   
   PGraphics createBoardGraphics() {
@@ -177,6 +159,8 @@ class Game {
   }
   
   void displayOverlay() {
+    image(boardOutline, 567, 20);
+    
     displayScore();
     strokeWeight(4);
     stroke(255,0,0);
