@@ -7,17 +7,21 @@ HashMap<String,SoundFile> soundMap = new HashMap<String,SoundFile>();
 
 void setup() {
   fullScreen();
-  soundMap.put("button", new SoundFile(this, "SELECT.wav"));
-  soundMap.put("normalOpening", new SoundFile(this, "NormalOpening.wav"));
-  soundMap.put("timerOpening", new SoundFile(this, "TimerOpening.wav"));
-  soundMap.put("fall", new SoundFile(this, "Fall.wav"));
-  soundMap.put("pop", new SoundFile(this, "Pop.wav"));
-  soundMap.put("levelUp", new SoundFile(this, "LevelUp.wav"));
-  soundMap.put("rotate", new SoundFile(this, "Rotate.wav"));
+  addSound("button", "SELECT.wav");
+  addSound("normalOpening", "NormalOpening.wav");
+  addSound("timerOpening", "TimerOpening.wav");
+  addSound("fall", "Fall.wav");
+  addSound("pop", "Pop.wav");
+  addSound("levelUp", "LevelUp.wav");
+  addSound("rotate", "Rotate.wav");
    
   game = new Game(soundMap);
   //frameRate(30);
   //size(1920, 1080);
+}
+
+void addSound(String name, String file) {
+  soundMap.put(name, new SoundFile(this, file));
 }
 
 void draw() {
