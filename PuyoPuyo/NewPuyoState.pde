@@ -269,6 +269,7 @@ class NewPuyoState extends State {
         minorAngle = newAngle;
         pivotX -= newMinorX;
       } else { // Column flip
+        pivotY += minorY();
         minorAngle += 2;
       }
       stall();
