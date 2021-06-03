@@ -265,7 +265,10 @@ class NewPuyoState extends State {
     }
     
     if (isPairVertical()) { // was vertical
-      if (isEmptyTile(pivotX - newMinorX, pivotY)) { // Wall nudge
+      if (isEmptyTile(pivotX + newMinorX, pivotY - 1)) { // Ledge climb
+        minorAngle = newAngle;
+        pivotY = ceil(pivotY-1);
+      } else if (isEmptyTile(pivotX - newMinorX, pivotY)) { // Wall nudge
         minorAngle = newAngle;
         pivotX -= newMinorX;
       } else { // Column flip
