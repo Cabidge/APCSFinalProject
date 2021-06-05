@@ -63,4 +63,4 @@ Smoothed out lateral movement animation for Puyo (~10 minutes)
 
 ## 5/31
 ### Tristan Pragnell
-Created all backgrounds, board outline, and audio (~1.5 hours)
+Created backgrounds, board outline, and audio (~1.5 hours)
