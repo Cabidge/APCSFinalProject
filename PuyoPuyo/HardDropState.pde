@@ -47,8 +47,8 @@ class HardDropState extends State {
   void drawBlur(PGraphics pg, int type, int x, float y) {
     PImage top = puyoSprites[1][21+type];
     PImage bot = puyoSprites[2][21+type];
-    drawRelativeImage(pg, top, x, y - 0.5);
-    drawRelativeImage(pg, bot, x, y + 0.5);
+    drawRelativeImage(pg, top, x, y - 1);
+    drawRelativeImage(pg, bot, x, y);
   }
   
   void drawRelativeImage(PGraphics pg, PImage img, float x, float y) {
