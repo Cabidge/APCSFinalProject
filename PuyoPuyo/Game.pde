@@ -129,7 +129,7 @@ class Game {
       for (int col = 0; col < WIDTH; col++) {
         if (board[row][col] != Puyo.NONE) {
           pg.image(puyoImage(board[row][col], neighborValueOf(row, col)),
-                   col * puyoSize, row * puyoSize - puyoSize * 2 + 4);
+                   col * puyoSize, row * puyoSize - puyoSize * 2);
         }
       }
     }
