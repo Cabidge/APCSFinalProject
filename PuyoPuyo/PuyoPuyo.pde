@@ -18,10 +18,10 @@ void setup() {
   addSound("move", "Move.wav");
   addSound("land", "Land.wav");
   
-  puyoSprites = divideImage(loadImage("puyo_aqua.png"), 68, 68, 4, 4);
+  puyoSprites = divideImage(loadImage("puyo_aqua.png"), 64, 64, 8, 8);
   for (PImage[] row : puyoSprites) {
     for (PImage img : row) {
-      img.resize(Game.puyoSize + 4, 0);
+      img.resize(Game.puyoSize, 0);
     }
   }
    
