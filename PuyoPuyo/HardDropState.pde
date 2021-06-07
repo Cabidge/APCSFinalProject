@@ -76,7 +76,7 @@ class HardDropState extends State {
   }
   
   boolean moveDown(float amount) {
-    int DIVISIONS = 5;
+    int DIVISIONS = 10;
     float segment = amount / DIVISIONS;
     for (int i = 0; i < DIVISIONS; i++) {
       if (!updatePivot(0, segment)) {
