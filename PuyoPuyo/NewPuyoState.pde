@@ -27,9 +27,9 @@ class NewPuyoState extends State {
   float bufferTimer;
   float stallHeight;
   int stallCount;
-   //<>//
+   //<>// //<>//
   NewPuyoState(Game game) {
-    super(game); //<>// //<>//
+    super(game); //<>// //<>// //<>//
     
     pivotX = 2;
     pivotY = 1;
@@ -126,12 +126,7 @@ class NewPuyoState extends State {
   }
   
   void hardDrop() {
-    int[] finalHeights = getFinalHeights();
-    game.getSound("land").play();
-    game.board[finalHeights[0]][pivotX] = pairTypes[0];
-    game.board[finalHeights[1]][pivotX+minorX()] = pairTypes[1];
-    game.addScore(2);
-    game.changeState(new PoppingState(game, 0));
+    game.changeState(new HardDropState(game, pairTypes, pivotX, pivotY, minorX(), minorY()));
   }
   
   /**
