@@ -46,14 +46,6 @@ class PoppingState extends State {
   
   void onUpdate(float delta) {
     if (timeElapsed >= POPPING_TIME) {
-      game.changeState(new FallingState(game, currentChain));
-      int rawScore = calculateScore(totalPuyoPopped, currentChain, poppedGroups.size());
-      game.addScore(game.getLevel() * rawScore);
-      game.addGroupsPopped(poppedGroups.size());
-      if (game.timeActive) {
-        game.timeLeft += rawScore / 50.0;
-      }
-      
       if (isFullClear()) {
         Animation fullClearAnim = new FadingText("Full Clear!")
           .withOrigin(Game.BOARD_X + Game.BOARD_WIDTH/2,
@@ -63,6 +55,14 @@ class PoppingState extends State {
           .withAlign(CENTER, CENTER);
         game.addAnimation(fullClearAnim);
         game.addScore(FULL_CLEAR_SCORE);
+      }
+      
+      game.changeState(new FallingState(game, currentChain));
+      int rawScore = calculateScore(totalPuyoPopped, currentChain, poppedGroups.size());
+      game.addScore(game.getLevel() * rawScore);
+      game.addGroupsPopped(poppedGroups.size());
+      if (game.timeActive) {
+        game.timeLeft += rawScore / 50.0;
       }
       return;
     }
