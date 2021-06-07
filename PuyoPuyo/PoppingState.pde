@@ -129,14 +129,10 @@ class PoppingState extends State {
   void onDisplay() {
     game.displayBack();
     
-    PImage boardImg = (showPreviousBoard()) ? beforePop : afterPop;
+    PImage boardImg = (frameCount % 2 == 0) ? beforePop : afterPop;
     image(boardImg, Game.BOARD_X, Game.BOARD_Y);
     
     game.displayOverlay();
-  }
-  
-  boolean showPreviousBoard() {
-    return millis() % 2 == 0;
   }
   
   /**
