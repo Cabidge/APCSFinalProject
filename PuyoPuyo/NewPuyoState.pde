@@ -4,7 +4,7 @@ class NewPuyoState extends State {
   static final float MAX_IDLE_FALL_SPEED = 2;
   static final float MAX_FALL_SPEED = 12;
   
-  static final int MILLIS_PER_FLASHES = 800;
+  static final int MILLIS_PER_FLASHES = 400;
   private PImage pivotSprite;
   private PImage pivotHighlightSprite;
   private PImage minorSprite;
