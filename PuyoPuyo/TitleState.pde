@@ -12,7 +12,6 @@ class TitleState extends State {
   }
   
   void onDisplay() {
-    game.titleBackground.resize(displayWidth, displayHeight);
     background(game.titleBackground); // main background (in title)
     //background(0);
     textSize(100);

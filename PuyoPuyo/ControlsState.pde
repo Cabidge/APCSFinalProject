@@ -11,7 +11,6 @@ class ControlsState extends State {
   void onDisplay() {
      
      clear();
-     game.controlBackground.resize(displayWidth, displayHeight);
      background(game.controlBackground);
      fill(255);
      textAlign(LEFT);

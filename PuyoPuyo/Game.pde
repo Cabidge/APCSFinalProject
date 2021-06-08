@@ -43,14 +43,17 @@ class Game {
     timeLeft = TIME_START;
     
     background = loadImage("PuyoPuyoBackground.jpeg");
-    background.resize(displayWidth, displayHeight);
+    background.resize(width, height);
     
     boardBackground = loadImage("BoardBackground.jpeg");
     boardBackground.resize(BOARD_WIDTH, BOARD_HEIGHT);
     
     //titleBackground = loadImage("TitleBackground.jpeg");
     titleBackground = loadImage("TitleBackground2.jpeg");
+    titleBackground.resize(width, height);
+    
     controlBackground = loadImage("ControlBackground.jpeg");
+    controlBackground.resize(width, height);
     
     boardOutline = loadImage("BoardOutline.png");
     boardOutline.resize(516, 964);
