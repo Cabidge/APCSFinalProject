@@ -22,11 +22,13 @@ class Game {
 
   
   // Display data
-  static final int puyoSize = 75;
+  static final float BOARD_SCALE = 1.2;
+  static final int PUYO_W = 64;
+  static final int PUYO_H = 60;
   static final int BOARD_X = 600;
-  static final int BOARD_Y = 50;
-  static final int BOARD_WIDTH = puyoSize * WIDTH;
-  static final int BOARD_HEIGHT = puyoSize * (HEIGHT - 2);
+  static final int BOARD_Y = 60;
+  static final int BOARD_WIDTH = (int)(BOARD_SCALE * PUYO_W * WIDTH);
+  static final int BOARD_HEIGHT = (int)(BOARD_SCALE * PUYO_H * (HEIGHT - 2));
   
   private State state;
   
@@ -56,8 +58,7 @@ class Game {
     controlBackground.resize(width, height);
     
     boardOutline = loadImage("BoardOutline.png");
-    boardOutline.resize(516, 964);
-    
+    boardOutline.resize((int)(BOARD_WIDTH * 1.149),(int)(BOARD_HEIGHT * 1.07));
     
     this.soundMap = soundMap;
     
@@ -75,10 +76,25 @@ class Game {
     animations = new ArrayList<Animation>();
   }
   
+  float relativeX(float col) {
+    return col * PUYO_W;
+  }
+  
+  int relativeX(int col) {
+    return col * PUYO_W;
+  }
+  
+  float relativeY(float row) {
+    return (row-2) * PUYO_H;
+  }
+  
+  int relativeY(int row) {
+    return (row-2) * PUYO_H;
+  }
+  
   SoundFile getSound(String s){
     return this.soundMap.get(s);
   }
-  
   
   void update() {
     while (nextPairs.size() < 2) {
@@ -121,21 +137,36 @@ class Game {
   }
   
   void displayBoard() {
-    image(createBoardGraphics(), BOARD_X, BOARD_Y);
+    displayBoard(boardImage());
+  }
+  
+  void displayBoard(PImage img) {
+    displayBoard(img, BOARD_X, BOARD_Y);
+  }
+  
+  void displayBoard(PImage img, float x, float y) {
+    image(img, x, y);
+    image(boardOutline, x-33, y-30);
   }
   
   PGraphics createBoardGraphics() {
     PGraphics pg = createGraphics(BOARD_WIDTH, BOARD_HEIGHT);
     pg.beginDraw();
+    pg.scale(BOARD_SCALE);
     pg.image(boardBackground,0,0);
     for (int row = 2; row < HEIGHT; row++) {
       for (int col = 0; col < WIDTH; col++) {
         if (board[row][col] != Puyo.NONE) {
           pg.image(puyoImage(board[row][col], neighborValueOf(row, col)),
-                   col * puyoSize, row * puyoSize - puyoSize * 2);
+                   relativeX(col), relativeY(row));
         }
       }
     }
+    return pg;
+  }
+  
+  PImage boardImage() {
+    PGraphics pg = createBoardGraphics();
     pg.endDraw();
     return pg;
   }
@@ -162,8 +193,6 @@ class Game {
   }
   
   void displayOverlay() {
-    image(boardOutline, 567, 20);
-    
     displayScore();
     strokeWeight(4);
     stroke(255,0,0);
@@ -191,11 +220,11 @@ class Game {
       PImage minor = puyoImage(pair[1]);
       PImage pivot = puyoImage(pair[0]);
       
-      float centerX = BOARD_X + BOARD_WIDTH + 60 + (i * puyoSize * 1.2);
-      float centerY = BOARD_Y + 150 + (i * puyoSize * 1.2);
+      float centerX = BOARD_X + BOARD_WIDTH + 60 + (i * PUYO_W * 1.2);
+      float centerY = BOARD_Y + 150 + (i * PUYO_H * 1.2);
       
       image(minor, centerX, centerY);
-      image(pivot, centerX, centerY + puyoSize);
+      image(pivot, centerX, centerY + PUYO_H);
       
       i++;
     }

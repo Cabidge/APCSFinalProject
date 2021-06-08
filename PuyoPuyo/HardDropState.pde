@@ -32,14 +32,13 @@ class HardDropState extends State {
     game.displayBack();
     
     PGraphics boardGraphics = game.createBoardGraphics();
-    boardGraphics.beginDraw();
     
     drawBlur(boardGraphics, pairTypes[0], pivotX, pivotY);
     drawBlur(boardGraphics, pairTypes[1], pivotX+minorX, pivotY+minorY);
     
     boardGraphics.endDraw();
     
-    image(boardGraphics, Game.BOARD_X, Game.BOARD_Y);
+    game.displayBoard(boardGraphics);
     
     game.displayOverlay();
   }
@@ -52,7 +51,7 @@ class HardDropState extends State {
   }
   
   void drawRelativeImage(PGraphics pg, PImage img, float x, float y) {
-    pg.image(img, x * Game.puyoSize, (y -2) * Game.puyoSize);
+    pg.image(img, game.relativeX(x), game.relativeY(y));
   }
 
   /**

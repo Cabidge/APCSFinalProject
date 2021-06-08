@@ -20,7 +20,7 @@ class PoppingState extends State {
   }
   
   void onEnter() {
-    beforePop = game.createBoardGraphics();
+    beforePop = game.boardImage();
     
     for (int row = 0; row < Game.HEIGHT; row++) {
       for (int col = 0; col < Game.WIDTH; col++) {
@@ -29,7 +29,7 @@ class PoppingState extends State {
     }
     
     if (poppedGroups.size() > 0) {
-      afterPop = game.createBoardGraphics();
+      afterPop = game.boardImage();
       
       Animation chainAnimation = new FadingText(currentChain + "-chain!")
         .withOrigin(1050 + random(80), 620 + random(30))
@@ -129,8 +129,9 @@ class PoppingState extends State {
   void onDisplay() {
     game.displayBack();
     
-    PImage boardImg = (frameCount % 2 == 0) ? beforePop : afterPop;
-    image(boardImg, Game.BOARD_X, Game.BOARD_Y);
+    game.displayBoard((frameCount % 2 == 0)
+                      ? beforePop
+                      : afterPop);
     
     game.displayOverlay();
   }

@@ -44,7 +44,6 @@ class FallingState extends State {
     game.displayBack();
     
     PGraphics boardGraphics = game.createBoardGraphics();
-    boardGraphics.beginDraw();
     
     for (PuyoColumn column : fallingPuyo) {
       column.drawColumn(boardGraphics);
@@ -52,7 +51,7 @@ class FallingState extends State {
     
     boardGraphics.endDraw();
     
-    image(boardGraphics, Game.BOARD_X, Game.BOARD_Y);
+    game.displayBoard(boardGraphics);
     
     game.displayOverlay();
   }
@@ -91,11 +90,11 @@ class FallingState extends State {
     }
     
     void drawColumn(PGraphics pg) {
-      int x = col * Game.puyoSize;
-      float y = (row-2) * Game.puyoSize;
+      int x = game.relativeX(col);
+      float drawRow = row;
       for (int type : types) {
-        pg.image(puyoImage(type), x, y);
-        y -= Game.puyoSize;
+        pg.image(puyoImage(type), x, game.relativeY(drawRow));
+        drawRow--;
       }
     }
     

@@ -27,9 +27,9 @@ class NewPuyoState extends State {
   float bufferTimer;
   float stallHeight;
   int stallCount;
-   //<>// //<>//
+   //<>//
   NewPuyoState(Game game) {
-    super(game); //<>// //<>// //<>//
+    super(game); //<>//
     
     pivotX = 2;
     pivotY = 1;
@@ -77,7 +77,6 @@ class NewPuyoState extends State {
     game.displayBack();
     
     PGraphics boardGraphics = game.createBoardGraphics();
-    boardGraphics.beginDraw();
     
     drawHints(boardGraphics);
     
@@ -88,7 +87,7 @@ class NewPuyoState extends State {
     
     boardGraphics.endDraw();
     
-    image(boardGraphics, Game.BOARD_X, Game.BOARD_Y);
+    game.displayBoard(boardGraphics);
     
     game.displayOverlay();
   }
@@ -98,7 +97,7 @@ class NewPuyoState extends State {
   }
   
   void drawRelativeImage(PGraphics pg, PImage img, float x, float y) {
-    pg.image(img, x * Game.puyoSize, (y -2) * Game.puyoSize);
+    pg.image(img, game.relativeX(x), game.relativeY(y));
   }
   
   void drawHints(PGraphics pg) {
