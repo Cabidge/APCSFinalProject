@@ -3,21 +3,25 @@ class TitleState extends State {
   Button timerButton;
   Button controlsButton;
   
+  PImage logo;
+  
   TitleState(Game game) {
     super(game);
     
-    normalButton = new Button("NORMAL", width/2, height/2 - 100, 500, 100, 90);
-    timerButton = new Button("TIMER", width/2, height/2 + 90, 500, 100, 90);
+    normalButton = new Button("NORMAL", width/2, height/2 - 10, 500, 100, 90);
+    timerButton = new Button("TIMER", width/2, height/2 + 180, 500, 100, 90);
     controlsButton = new Button("controls", width - 120, height - 120, 120, 40, 24);
+    
+    logo = loadImage("Title.png");
   }
   
   void onDisplay() {
     background(game.titleBackground); // main background (in title)
     //background(0);
-    textSize(100);
-    fill(202, 3, 252);
-    textAlign(CENTER, CENTER);
-    text("GAME MODE", width/2, 200);
+    
+    imageMode(CENTER);
+    image(logo, width/2, logo.height);
+    imageMode(CORNER);
     
     normalButton.display();
     timerButton.display();
