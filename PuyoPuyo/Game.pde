@@ -15,6 +15,7 @@ class Game {
   PImage background;
   PImage boardBackground;
   PImage boardOutline;
+  PImage nextBackground;
   PImage titleBackground;
   PImage controlBackground;
   
@@ -24,7 +25,7 @@ class Game {
   // Display data
   static final int PUYO_W = 64;
   static final int PUYO_H = 60;
-  static final int BOARD_X = 640;
+  static final int BOARD_X = 800;
   static final int BOARD_Y = 150;
   static final int BOARD_WIDTH = 400;
   static final int BOARD_HEIGHT = 730;
@@ -59,6 +60,9 @@ class Game {
     boardOutline = loadImage("FieldOutline.png");
     //boardOutline = loadImage("BoardOutline.png");
     //boardOutline.resize((int)(BOARD_WIDTH * 1.149),(int)(BOARD_HEIGHT * 1.07));
+    
+    nextBackground = loadImage("FieldNext.png");
+    nextBackground.resize(165,0);
     
     this.soundMap = soundMap;
     
@@ -224,18 +228,23 @@ class Game {
   }
   
   void displayNextPairs() {
+    image(nextBackground, BOARD_X - 200, BOARD_Y + 100);
     int i = 0;
+    float scale = 1.0;
     for (int[] pair : nextPairs) {
       PImage minor = puyoImage(pair[1]);
       PImage pivot = puyoImage(pair[0]);
       
-      float centerX = BOARD_X + BOARD_WIDTH + 60 + (i * PUYO_W * 1.2);
-      float centerY = BOARD_Y + 150 + (i * PUYO_H * 1.2);
-      
-      image(minor, centerX, centerY);
-      image(pivot, centerX, centerY + PUYO_H);
+      pushMatrix();
+      translate(BOARD_X - 115 - (i * PUYO_W * 1.05),
+                BOARD_Y + 124 + (i * PUYO_H * 1.12));
+      scale(scale);
+      image(minor, 0, 0);
+      image(pivot, 0, PUYO_H);
+      popMatrix();
       
       i++;
+      scale *= 0.8;
     }
   }
   
@@ -255,9 +264,9 @@ class Game {
     textAlign(LEFT);
     textSize(32);
     fill(0,255,255);
-    text("SCORE", BOARD_X+BOARD_WIDTH+80, BOARD_Y+30);
+    text("SCORE", BOARD_X-190, BOARD_Y+30);
     fill(255);
-    text(score, BOARD_X+BOARD_WIDTH+80, BOARD_Y+80);
+    text(score, BOARD_X-190, BOARD_Y+60);
   }
   
   void displayLevel() {
@@ -265,9 +274,9 @@ class Game {
     textAlign(LEFT);
     textSize(32);
     //text("LEVEL: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-16); original location
-    text("LEVEL", BOARD_X+BOARD_WIDTH+240, BOARD_Y+30);
+    text("LEVEL", BOARD_X-360, BOARD_Y+30);
     fill(255);
-    text(getLevel(), BOARD_X+BOARD_WIDTH+240, BOARD_Y+80);
+    text(getLevel(), BOARD_X-360, BOARD_Y+60);
   }
   
   void displayTime() {
@@ -292,8 +301,8 @@ class Game {
   void addScore(int amount) {
     score += amount;
     addAnimation(new FadingText("+" + amount)
-                   .withOrigin(BOARD_X+BOARD_WIDTH+100 + random(-30, 30),
-                               BOARD_Y+80 + random(10))
+                   .withOrigin(BOARD_X-190 + random(-30, 30),
+                               BOARD_Y+60 + random(10))
                    .withSize(24));
   }
   
