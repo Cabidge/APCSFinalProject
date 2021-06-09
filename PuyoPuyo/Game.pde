@@ -244,9 +244,19 @@ class Game {
     textAlign(LEFT);
     textSize(32);
     fill(0,255,255);
-    text("SCORE", 1200, 80);
+    text("SCORE", BOARD_X+BOARD_WIDTH+80, BOARD_Y+30);
     fill(255);
-    text(score, 1200, 130);
+    text(score, BOARD_X+BOARD_WIDTH+80, BOARD_Y+80);
+  }
+  
+  void displayLevel() {
+    fill(0,255,255);
+    textAlign(LEFT);
+    textSize(32);
+    //text("LEVEL: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-16); original location
+    text("LEVEL", BOARD_X+BOARD_WIDTH+240, BOARD_Y+30);
+    fill(255);
+    text(getLevel(), BOARD_X+BOARD_WIDTH+240, BOARD_Y+80);
   }
   
   void displayTime() {
@@ -271,7 +281,8 @@ class Game {
   void addScore(int amount) {
     score += amount;
     addAnimation(new FadingText("+" + amount)
-                   .withOrigin(1200 + random(-30, 30), 100 + random(10))
+                   .withOrigin(BOARD_X+BOARD_WIDTH+100 + random(-30, 30),
+                               BOARD_Y+80 + random(10))
                    .withSize(24));
   }
   
@@ -296,15 +307,5 @@ class Game {
   
   void onLevelUp() {
     game.getSound("levelUp").play();
-  }
-  
-  void displayLevel() {
-    fill(0,255,255);
-    textAlign(LEFT);
-    textSize(32);
-    //text("LEVEL: " + getLevel(), BOARD_X+BOARD_WIDTH+40, BOARD_Y+BOARD_HEIGHT-16); original location
-    text("LEVEL", BOARD_X+800, BOARD_Y+30);
-    fill(255);
-    text(getLevel(), BOARD_X+800, BOARD_Y+80);
   }
 }
