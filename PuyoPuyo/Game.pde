@@ -14,9 +14,9 @@ class Game {
   
   PImage background;
   PImage boardBackground;
+  PImage boardOutline;
   PImage titleBackground;
   PImage controlBackground;
-  PImage boardOutline;
   
   HashMap<String,SoundFile> soundMap;
 
@@ -26,8 +26,8 @@ class Game {
   static final int PUYO_H = 60;
   static final int BOARD_X = 640;
   static final int BOARD_Y = 150;
-  static final int BOARD_WIDTH = PUYO_W * WIDTH;
-  static final int BOARD_HEIGHT = PUYO_H * (HEIGHT - 2);
+  static final int BOARD_WIDTH = 400;
+  static final int BOARD_HEIGHT = 730;
   
   private State state;
   
@@ -56,8 +56,9 @@ class Game {
     controlBackground = loadImage("ControlBackground.jpeg");
     controlBackground.resize(width, height);
     
-    boardOutline = loadImage("BoardOutline.png");
-    boardOutline.resize((int)(BOARD_WIDTH * 1.149),(int)(BOARD_HEIGHT * 1.07));
+    boardOutline = loadImage("FieldOutline.png");
+    //boardOutline = loadImage("BoardOutline.png");
+    //boardOutline.resize((int)(BOARD_WIDTH * 1.149),(int)(BOARD_HEIGHT * 1.07));
     
     this.soundMap = soundMap;
     
@@ -76,19 +77,19 @@ class Game {
   }
   
   float relativeX(float col) {
-    return col * PUYO_W;
+    return col * PUYO_W + 8;
   }
   
   int relativeX(int col) {
-    return col * PUYO_W;
+    return col * PUYO_W + 8;
   }
   
   float relativeY(float row) {
-    return (row-2) * PUYO_H;
+    return (row-2) * PUYO_H + 10;
   }
   
   int relativeY(int row) {
-    return (row-2) * PUYO_H;
+    return (row-2) * PUYO_H + 10;
   }
   
   SoundFile getSound(String s){
@@ -144,9 +145,9 @@ class Game {
   }
   
   void displayBoard(PImage img, float x, float y) {
+    image(boardOutline, x-17, y-52);
     image(img, x, y);
     displayX();
-    image(boardOutline, x-33, y-30);
   }
   
   void displayX() {
@@ -154,7 +155,7 @@ class Game {
     PImage img = puyoSprites[11][5 + (4-abs(frame - 4))];
     
     pushMatrix();
-    translate(BOARD_X + PUYO_W * (2.5), BOARD_Y + PUYO_H * 0.5);
+    translate(BOARD_X + relativeX(2.5), BOARD_Y + relativeY(2.5));
     imageMode(CENTER);
     if (frame > 4) {
       scale(-1,1);
