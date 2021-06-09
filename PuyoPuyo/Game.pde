@@ -145,7 +145,23 @@ class Game {
   
   void displayBoard(PImage img, float x, float y) {
     image(img, x, y);
+    displayX();
     image(boardOutline, x-33, y-30);
+  }
+  
+  void displayX() {
+    int frame = (int)(4.5 * (1 - cos(millis()/400.0 % PI)));
+    PImage img = puyoSprites[11][5 + (4-abs(frame - 4))];
+    
+    pushMatrix();
+    translate(BOARD_X + PUYO_W * (2.5), BOARD_Y + PUYO_H * 0.5);
+    imageMode(CENTER);
+    if (frame > 4) {
+      scale(-1,1);
+    }
+    image(img,0,0);
+    popMatrix();
+    imageMode(CORNER);
   }
   
   PGraphics createBoardGraphics() {
@@ -192,13 +208,7 @@ class Game {
   
   void displayOverlay() {
     displayScore();
-    strokeWeight(4);
-    stroke(255,0,0);
-    line(755,55,820,120);
-    line(820,55,755,120);
-    
     displayNextPairs();
-    
     displayLevel();
     
     if (paused) {
