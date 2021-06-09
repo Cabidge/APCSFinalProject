@@ -22,13 +22,12 @@ class Game {
 
   
   // Display data
-  static final float BOARD_SCALE = 1.2;
   static final int PUYO_W = 64;
   static final int PUYO_H = 60;
-  static final int BOARD_X = 600;
-  static final int BOARD_Y = 60;
-  static final int BOARD_WIDTH = (int)(BOARD_SCALE * PUYO_W * WIDTH);
-  static final int BOARD_HEIGHT = (int)(BOARD_SCALE * PUYO_H * (HEIGHT - 2));
+  static final int BOARD_X = 640;
+  static final int BOARD_Y = 150;
+  static final int BOARD_WIDTH = PUYO_W * WIDTH;
+  static final int BOARD_HEIGHT = PUYO_H * (HEIGHT - 2);
   
   private State state;
   
@@ -152,7 +151,6 @@ class Game {
   PGraphics createBoardGraphics() {
     PGraphics pg = createGraphics(BOARD_WIDTH, BOARD_HEIGHT);
     pg.beginDraw();
-    pg.scale(BOARD_SCALE);
     pg.image(boardBackground,0,0);
     for (int row = 2; row < HEIGHT; row++) {
       for (int col = 0; col < WIDTH; col++) {
