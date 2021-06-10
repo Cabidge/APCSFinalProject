@@ -27,12 +27,12 @@ String[] skinNames = {
 
 void setup() {
   fullScreen();
-  addSound("button", "SELECT.wav");
-  addSound("normalOpening", "NormalOpening.wav");
-  addSound("timerOpening", "TimerOpening.wav");
-  addSound("pop", "Pop.wav");
-  addSound("levelUp", "LevelUp.wav");
-  addSound("rotate", "Rotate.wav");
+  addSound("button", "SELECT.wav", true);
+  addSound("normalOpening", "NormalOpening.wav", false, 0.25);
+  addSound("timerOpening", "TimerOpening.wav", false, 0.25);
+  addSound("pop", "Pop.wav", false, 0.9);
+  addSound("levelUp", "LevelUp.wav", false, 0.75);
+  addSound("rotate", "Rotate.wav", true, 0.7);
   addSound("move", "Move.wav");
   addSound("land", "Land.wav");
   
@@ -48,7 +48,17 @@ void reloadSkin() {
 }
 
 void addSound(String name, String file) {
-  soundMap.put(name, new SoundFile(this, file));
+  addSound(name, file, true);
+}
+
+void addSound(String name, String file, boolean cache) {
+  addSound(name, file, cache, 1.0);
+}
+
+void addSound(String name, String file, boolean cache, float amp) {
+  SoundFile s = new SoundFile(this, file, cache);
+  s.amp(amp);
+  soundMap.put(name, s);
 }
 
 void draw() {
