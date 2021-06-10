@@ -37,7 +37,7 @@ class PoppingState extends State {
         .withColor(color(230, 200, 0));
       game.addAnimation(chainAnimation);
       game.getSound("pop").play();
-    } else if (game.board[2][2] != Puyo.NONE || !game.hasTime()) {
+    } else if (!game.isNoneAt(2, 2) || !game.hasTime()) {
       game.changeState(new FailState(game));
     } else {
       game.changeState(new NewPuyoState(game));
@@ -71,9 +71,9 @@ class PoppingState extends State {
   }
   
   boolean isFullClear() {
-    for (int[] row : game.board) {
-      for (int puyo : row) {
-        if (puyo != Puyo.NONE) {
+    for (int row = 0; row < Game.HEIGHT; row++) {
+      for (int col = 0; col < Game.WIDTH; col++) {
+        if (!game.isNoneAt(row, col)) {
           return false;
         }
       }
@@ -142,7 +142,7 @@ class PoppingState extends State {
    * @returns if the pop succeeded or not.
    */
   boolean tryFloodPop(int x, int y) {
-    int pType = game.board[y][x];
+    int pType = game.puyoAt(y, x);
     
     if (pType == Puyo.NONE) {
       return false;
@@ -161,7 +161,7 @@ class PoppingState extends State {
         int neighborY = pos[1] + yOff;
         if (neighborX >= 0 && neighborX < Game.WIDTH
             && neighborY >= 0 && neighborY < Game.HEIGHT
-            && game.board[neighborY][neighborX] == pType) {
+            && game.puyoAt(neighborY, neighborX) == pType) {
           addPopped(frontier, group, neighborX, neighborY);
         }
         int temp = xOff;
@@ -186,6 +186,6 @@ class PoppingState extends State {
     int[] pos = {x, y};
     frontier.add(pos);
     group.add(pos);
-    game.board[y][x] = Puyo.NONE;
+    game.setPuyoAt(y, x, Puyo.NONE);
   }
 }

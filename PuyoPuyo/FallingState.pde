@@ -18,13 +18,13 @@ class FallingState extends State {
     fallingPuyo = new ArrayDeque<PuyoColumn>();
     for (int col = 0; col < Game.WIDTH; col++) {
       for (int row = Game.HEIGHT-2; row >= 0; row--) {
-        if (game.board[row+1][col] == Puyo.NONE &&
-            game.board[row][col] != Puyo.NONE) {
+        if (game.puyoAt(row+1, col) == Puyo.NONE &&
+            game.puyoAt(row, col) != Puyo.NONE) {
           int bottom = row;
           List<Integer> types = new ArrayList<Integer>();
           while (game.puyoAt(row, col) != Puyo.NONE) {
-            types.add(game.board[row][col]);
-            game.board[row][col] = Puyo.NONE;
+            types.add(game.puyoAt(row,col));
+            game.setPuyoAt(row, col, Puyo.NONE);
             row--;
           }
           fallingPuyo.add(new PuyoColumn(bottom, col, types));
@@ -106,7 +106,7 @@ class FallingState extends State {
           if (constrainedRow > row) {
             // Finalize column
             for (int type : types) {
-              game.board[constrainedRow][col] = type;
+              game.setPuyoAt(constrainedRow, col, type);
               constrainedRow--;
             }
             return false;
@@ -137,8 +137,6 @@ class FallingState extends State {
    * @returns if the given position is an empty tile
    */
   boolean isEmptyTile(int x, float y) {
-    return x >= 0 && x < Game.WIDTH
-           && y >= 0 && ceil(y) < Game.HEIGHT
-           && game.board[ceil(y)][x] == Puyo.NONE;
+    return game.isNoneAt(ceil(y), x);
   }
 }

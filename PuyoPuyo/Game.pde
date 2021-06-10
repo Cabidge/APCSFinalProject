@@ -20,7 +20,6 @@ class Game {
   PImage controlBackground;
   
   HashMap<String,SoundFile> soundMap;
-
   
   // Display data
   static final int PUYO_W = 64;
@@ -36,7 +35,7 @@ class Game {
   
   private List<Animation> animations;
   
-  int[][] board;
+  private int[][] board;
   private int score;
   
   int pmillis;
@@ -206,9 +205,22 @@ class Game {
   int puyoAt(int row, int col) {
     if (row < 0 || row >= HEIGHT ||
         col < 0 || col >= WIDTH) {
-      return Puyo.NONE;
+      return Puyo.BARRIER;
     }
     return board[row][col];
+  }
+  
+  boolean setPuyoAt(int row, int col, int type) {
+    if (row < 0 || row >= HEIGHT ||
+        col < 0 || col >= WIDTH) {
+      return false;
+    }
+    board[row][col] = type;
+    return true;
+  }
+  
+  boolean isNoneAt(int row, int col) {
+    return puyoAt(row, col) == Puyo.NONE;
   }
   
   void displayOverlay() {

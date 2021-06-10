@@ -98,9 +98,7 @@ class HardDropState extends State {
    * @returns if the given position is an empty tile
    */
   boolean isEmptyTile(int x, float y) {
-    return x >= 0 && x < Game.WIDTH
-           && y >= 0 && ceil(y) < Game.HEIGHT
-           && game.board[ceil(y)][x] == Puyo.NONE;
+    return game.isNoneAt(ceil(y), x);
   }
 
   /**
@@ -109,8 +107,8 @@ class HardDropState extends State {
    */
   void finalizePair() {
     game.getSound("land").play();
-    game.board[ceil(pivotY)][pivotX] = pairTypes[0];
-    game.board[ceil(pivotY+minorY)][pivotX+minorX] = pairTypes[1];
+    game.setPuyoAt(ceil(pivotY), pivotX, pairTypes[0]);
+    game.setPuyoAt(ceil(pivotY+minorY), pivotX+minorX, pairTypes[1]);
     game.addScore(2);
     game.changeState(new FallingState(game));
   }
