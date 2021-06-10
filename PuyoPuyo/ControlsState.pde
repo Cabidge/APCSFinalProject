@@ -5,7 +5,7 @@ class ControlsState extends State {
   ControlsState(Game game) {
     super(game);
     
-    backButton = new Button("back", width - 120, height - 120, 120, 40, 24);
+    backButton = new Button("back", width - 120, height - 70, 180, 40, 24);
   }
   
   void onDisplay() {

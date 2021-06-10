@@ -2,6 +2,7 @@ class TitleState extends State {
   Button normalButton;
   Button timerButton;
   Button controlsButton;
+  Button skinButton;
   
   PImage logo;
   
@@ -10,7 +11,8 @@ class TitleState extends State {
     
     normalButton = new Button("NORMAL", width/2, height/2 - 10, 500, 100, 90);
     timerButton = new Button("TIMER", width/2, height/2 + 180, 500, 100, 90);
-    controlsButton = new Button("controls", width - 120, height - 120, 120, 40, 24);
+    controlsButton = new Button("controls", width - 120, height - 70, 180, 40, 24);
+    skinButton = new Button("change skin", width - 120, height - 140, 180, 40, 24);
     
     logo = loadImage("Title.png");
   }
@@ -26,6 +28,7 @@ class TitleState extends State {
     normalButton.display();
     timerButton.display();
     controlsButton.display();
+    skinButton.display();
   }
   
   void onUpdate(float delta) {
@@ -45,6 +48,9 @@ class TitleState extends State {
     } else if (controlsButton.isSelected()) {
       game.getSound("button").play();
       game.changeState(new ControlsState(game));
+    } else if (skinButton.isSelected()) {
+      game.getSound("button").play();
+      game.changeState(new SkinState(game));
     }
   }
     

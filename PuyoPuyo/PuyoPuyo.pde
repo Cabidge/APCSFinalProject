@@ -6,6 +6,24 @@ Game game;
 HashMap<String,SoundFile> soundMap = new HashMap<String,SoundFile>();
 
 PImage[][] puyoSprites;
+int currentSkin;
+String[] skinNames = {
+  "aqua",
+  "beta",
+  "block",
+  "capsule",
+  "classic",
+  "degi",
+  "fever",
+  "gamegear",
+  "human",
+  "moji",
+  "moro",
+  "msx",
+  "shiki",
+  "sonic",
+  "tetris"
+};
 
 void setup() {
   fullScreen();
@@ -18,11 +36,15 @@ void setup() {
   addSound("move", "Move.wav");
   addSound("land", "Land.wav");
   
-  puyoSprites = divideImage(loadImage("puyo_aqua.png"), 64, 60, 8, 12);
-   
+  reloadSkin();
+  
   game = new Game(soundMap);
   //frameRate(30);
   //size(1920, 1080);
+}
+
+void reloadSkin() {
+  puyoSprites = divideImage(loadImage("puyo_"+skinNames[currentSkin]+".png"), 64, 60, 8, 12);
 }
 
 void addSound(String name, String file) {
