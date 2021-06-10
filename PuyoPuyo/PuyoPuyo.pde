@@ -28,8 +28,6 @@ String[] skinNames = {
 void setup() {
   fullScreen();
   addSound("button", "SELECT.wav", true);
-  addSound("normalOpening", "NormalOpening.wav", false, 0.25);
-  addSound("timerOpening", "TimerOpening.wav", false, 0.25);
   addSound("pop", "Pop.wav", false, 0.9);
   addSound("levelUp", "LevelUp.wav", false, 0.75);
   addSound("rotate", "Rotate.wav", true, 0.7);

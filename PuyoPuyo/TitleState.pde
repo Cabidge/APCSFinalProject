@@ -39,12 +39,10 @@ class TitleState extends State {
     if (normalButton.isSelected()) {
       game.getSound("button").play();
       game.changeState(new NewPuyoState(game));
-      game.getSound("normalOpening").play();
     } else if (timerButton.isSelected()) {
       game.getSound("button").play();
       game.timeActive = true;
       game.changeState(new NewPuyoState(game));
-      game.getSound("timerOpening").play();
     } else if (controlsButton.isSelected()) {
       game.getSound("button").play();
       game.changeState(new ControlsState(game));
