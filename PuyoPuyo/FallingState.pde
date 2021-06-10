@@ -99,9 +99,8 @@ class FallingState extends State {
     }
     
     boolean moveDown(float amount) {
-      int DIVISIONS = 10;
-      float segment = amount / DIVISIONS;
-      for (int i = 0; i < DIVISIONS; i++) {
+      while (amount > 0) {
+        float segment = min(1, amount);
         if (!updateRow(segment)) {
           int constrainedRow = ceil(row + segment - 1);
           if (constrainedRow > row) {
@@ -114,6 +113,7 @@ class FallingState extends State {
           }
           return false;
         }
+        amount -= segment;
       }
       return true;
     }

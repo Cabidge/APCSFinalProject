@@ -75,17 +75,17 @@ class HardDropState extends State {
   }
   
   boolean moveDown(float amount) {
-    int DIVISIONS = 10;
-    float segment = amount / DIVISIONS;
-    for (int i = 0; i < DIVISIONS; i++) {
+    while (amount > 0) {
+      float segment = min(1, amount);
       if (!updatePivot(0, segment)) {
-        float constrainedY = ceil(pivotY + segment - 1);
+        float constrainedY = ceil(pivotY +  - 1);
         if (constrainedY > pivotY) {
           pivotY = constrainedY;
           return true;
         }
         return false;
       }
+      amount -= segment;
     }
     
     return true;
