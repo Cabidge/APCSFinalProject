@@ -39,6 +39,11 @@ void setup() {
   reloadSkin();
   
   game = new Game(soundMap);
+  
+  SoundFile music = new SoundFile(this, "Music.wav");
+  music.loop();
+  music.amp(0.4);
+  music.play();
   //frameRate(30);
   //size(1920, 1080);
 }
