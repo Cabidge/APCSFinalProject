@@ -2,6 +2,8 @@ class FallingState extends State {
   static final float GRAVITY = 60;
   float dy;
   
+  float timeSinceFinalized;
+  
   Queue<PuyoColumn> fallingPuyo;
   
   int currentChain;
@@ -34,9 +36,14 @@ class FallingState extends State {
   }
   
   void onUpdate(float delta) {
-    dy += GRAVITY * delta;
-    if (!induceGravity(delta * dy)) {
-      game.changeState(new PoppingState(game, currentChain));
+    if (fallingPuyo.size() == 0) {
+      timeSinceFinalized += delta;
+      if (timeSinceFinalized*1000 >= Game.TIME_BEFORE_SETTLED+10) {
+        game.changeState(new PoppingState(game, currentChain));
+      }
+    } else {
+      dy += GRAVITY * delta;
+      induceGravity(delta * dy);
     }
   }
   

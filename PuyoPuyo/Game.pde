@@ -35,7 +35,7 @@ class Game {
   
   private List<Animation> animations;
   
-  private static final int TIME_BEFORE_SETTLED = 80;
+  static final int TIME_BEFORE_SETTLED = 80;
   private static final int WIGGLE_TIME = 40;
   private int[][] board;
   private int[][] timePlaced; // The time since a puyo has been placed at a square
@@ -184,7 +184,7 @@ class Game {
         if (type != Puyo.NONE) {
           PImage puyoImg;
           int lifeTime = timePlaced[row][col];
-          if (lifeTime > TIME_BEFORE_SETTLED) {
+          if (lifeTime >= TIME_BEFORE_SETTLED) {
             puyoImg = puyoImage(type, neighborValueOf(row, col));
           } else {
             int offset = ((lifeTime / WIGGLE_TIME) % 2 == 0)
