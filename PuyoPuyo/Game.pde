@@ -35,7 +35,10 @@ class Game {
   
   private List<Animation> animations;
   
+  private static final int TIME_BEFORE_SETTLED = 80;
+  private static final int WIGGLE_TIME = 40;
   private int[][] board;
+  private int[][] timePlaced; // The time since a puyo has been placed at a square
   private int score;
   
   int pmillis;
@@ -73,6 +76,7 @@ class Game {
     state = new TitleState(this);
     state.onEnter();
     board = new int[HEIGHT][WIDTH];
+    timePlaced = new int[HEIGHT][WIDTH];
     score = 0;
     pmillis = millis();
     
@@ -100,11 +104,14 @@ class Game {
   }
   
   void update() {
-    while (nextPairs.size() < 2) {
-    }
-    
     if (!paused) {
-      state.onUpdate((millis()-pmillis)/1000.0);
+      int delta = millis()-pmillis;
+      for (int row = 0; row < HEIGHT; row++) {
+        for (int col = 0; col < WIDTH; col++) {
+          timePlaced[row][col] += delta;
+        }
+      }
+      state.onUpdate(delta / 1000.0);
     }
     pmillis = millis();
   }
@@ -129,7 +136,6 @@ class Game {
       }
     }
   }
-  
   
   void addAnimation(Animation anim) {
     animations.add(anim);
@@ -174,9 +180,18 @@ class Game {
     pg.image(boardBackground,0,0);
     for (int row = 2; row < HEIGHT; row++) {
       for (int col = 0; col < WIDTH; col++) {
-        if (board[row][col] != Puyo.NONE) {
-          pg.image(puyoImage(board[row][col], neighborValueOf(row, col)),
-                   relativeX(col), relativeY(row));
+        int type = board[row][col];
+        if (type != Puyo.NONE) {
+          PImage puyoImg;
+          int lifeTime = timePlaced[row][col];
+          if (lifeTime > TIME_BEFORE_SETTLED) {
+            puyoImg = puyoImage(type, neighborValueOf(row, col));
+          } else {
+            int offset = ((lifeTime / WIGGLE_TIME) % 2 == 0)
+                         ? 0 : 1;
+            puyoImg = puyoSprites[9 + (type / 3)][(10 + type * 2 + offset) % 16];
+          }
+          pg.image(puyoImg, relativeX(col), relativeY(row));
         }
       }
     }
@@ -195,11 +210,20 @@ class Game {
       return 0;
     }
     int val = 0;
-    val += (puyoAt(row + 1, col) == type) ? 1 : 0;
-    val += (puyoAt(row - 1, col) == type) ? 2 : 0;
-    val += (puyoAt(row, col + 1) == type) ? 4 : 0;
-    val += (puyoAt(row, col - 1) == type) ? 8 : 0;
+    val += (shouldBond(type, row + 1, col)) ? 1 : 0;
+    val += (shouldBond(type, row - 1, col)) ? 2 : 0;
+    val += (shouldBond(type, row, col + 1)) ? 4 : 0;
+    val += (shouldBond(type, row, col - 1)) ? 8 : 0;
     return val;
+  }
+  
+  boolean shouldBond(int type, int row, int col) {
+    if (row < 0 || row >= HEIGHT ||
+        col < 0 || col >= WIDTH) {
+      return false;
+    }
+    
+    return timePlaced[row][col] >= TIME_BEFORE_SETTLED && board[row][col] == type;
   }
   
   int puyoAt(int row, int col) {
@@ -216,6 +240,7 @@ class Game {
       return false;
     }
     board[row][col] = type;
+    timePlaced[row][col] = 0;
     return true;
   }
   

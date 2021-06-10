@@ -186,6 +186,6 @@ class PoppingState extends State {
     int[] pos = {x, y};
     frontier.add(pos);
     group.add(pos);
-    game.setPuyoAt(y, x, Puyo.NONE);
+    game.board[y][x] = Puyo.NONE;
   }
 }
