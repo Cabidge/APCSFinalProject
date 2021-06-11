@@ -33,8 +33,9 @@ class PoppingState extends State {
       afterPop = game.boardImage();
       
       Animation chainAnimation = new FadingText(currentChain + "-chain!")
-        .withOrigin(1050 + random(80), 620 + random(30))
+        .withOrigin(Game.BOARD_X + random(Game.BOARD_WIDTH) / 2 + Game.BOARD_WIDTH / 4, 620 + random(30))
         .withSize(30 + currentChain * 5)
+        .withAlign(CENTER, CENTER)
         .withColor(color(230, 200, 0));
       game.addAnimation(chainAnimation);
       game.getSound("pop").play();
