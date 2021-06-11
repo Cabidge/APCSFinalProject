@@ -139,6 +139,7 @@ class Game {
   
   void addAnimation(Animation anim) {
     animations.add(anim);
+    anim.play();
   }
   
   void displayBack() {

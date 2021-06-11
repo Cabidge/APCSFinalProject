@@ -4,6 +4,9 @@ abstract class Animation {
   
   Animation(float duration) {
     this.duration = duration;
+  }
+  
+  void play() {
     timeInitial = millis() / 1000.0;
   }
   
