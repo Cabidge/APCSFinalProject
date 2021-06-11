@@ -3,17 +3,26 @@ class SkinState extends State {
   Button next;
   Button prev;
   
+  PImage background;
+  
   SkinState(Game game) {
     super(game);
     
     backButton = new Button("back", width - 120, height - 70, 180, 40, 24);
     next = new Button(">", width/2 + 300, height - 300, 100, 100, 60);
     prev = new Button("<", width/2 - 300, height - 300, 100, 100, 60);
+    
+    background = loadImage("TitleBackground.jpeg");
+    background.resize(width,height);
   }
   
   void onDisplay() {
-    background(100);
+    background(background);
     backButton.display();
+    
+    rectMode(CENTER);
+    fill(0, 100);
+    rect(width/2, height/2, 900, 800);
     
     // Skin Display
     displayRing(width/2, height/2 - 100);
