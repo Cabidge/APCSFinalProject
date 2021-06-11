@@ -7,9 +7,18 @@ Members
 ---
 Wen Hao Dong, Tristan Pragnell
 
+How To Run:
+---
+1. Open any of the .pde files with Processing
+2. Download Processing's Sound library if you haven't
+  2a. Sketch > Import Library... > Add Library...
+  2b. Search for "Sound"
+  2c. Click on Sound by The Processing Foundation and click Install
+3. Click the run button
+
 Brief Description:
 ---
-Puyo Puyo is a tile-matching puzzle game, similar to that of Tetris and Dr. Mario. The game is played on a board of 6x12. The falling Puyos can be moved left and right, and they fall faster when the down button is pressed. Puyos fall in pairs, and can be rotated clockwise or counter clockwise by the player. When there are four or more of the same colored Puyos adjacent to each other, they will pop. “Adjacent” means connected horizontally or vertically, not diagonally. When Puyos pop, they cause Puyos above them to fall down as well. If this causes another group of four or more Puyos to be adjacent to each other, they will pop as well, and start a “chain.” In single player endless Puyo Puyo, the higher your chain count, the more points you receive.
+Puyo Puyo is a tile-matching puzzle game, similar to that of Tetris and Dr. Mario, and is played on a 6 by 12 board. Puyo fall in pairs, and can be moved left, right, down, and rotated clockwise or counter clockwise by the player. When there are four or more of the same colored Puyo adjacent to each other, they will pop. When Puyo pop, they cause Puyo above them to fall down as well. If this causes another group Puyo to pop, a “chain” will begin. In single player endless Puyo Puyo, the higher your chain count, the more points you receive.
 
 Full Design Doc
 ---
@@ -43,8 +52,9 @@ Made controlling Puyo more forgiving, implemented chaining, and updated visuals.
 
 ## 5/28
 ### Wen Hao Dong
-Visual improvements (next Puyo display, level display, Popping indicator, and small animations). (~40 minutes)
-Made the game speed up as the player increases their level. (~20 minutes)
+Visual improvements (next Puyo display, level display, Popping indicator, and small animations).
+Made the game speed up as the player increases their level.
+(~1 hour)
 
 ### Tristan Pragnell
 Added control page, title screen, confirmation dialogue (~1.5 hours)
@@ -52,15 +62,49 @@ Added alternative keybinds
 
 ## 5/29
 ### Wen Hao Dong
-Added ability to hard drop and drop hints (~20 minutes)
-Started on timer mode (~15 minutes)
+Added ability to hard drop and drop hints.
+Started on timer mode.
+(~30 min)
 
 ## 5/30
 ### Wen Hao Dong
-Balance changes and changed scoring system to match the official games' (~40 minutes)
-Finished implementing timer mode (~10 minutes)
-Smoothed out lateral movement animation for Puyo (~10 minutes)
+Balance changes and changed scoring system to match the official games'.
+Finished implementing timer mode.
+Smoothed out lateral movement animation for Puyo.
+(~1 hour)
 
 ## 5/31
 ### Tristan Pragnell
 Created backgrounds, board outline, and audio (~1.5 hours)
+
+## 6/2
+### Wen Hao Dong
+Added sound effects and starting adding sprites from the actual game.
+Added some animations and minor visual updates.
+Implemented ledge climbing mechanic.
+(~2.5 hours)
+
+## 6/7
+### Wen Hao Dong
+Updated visuals to look nicer and more akin to the actual game.
+Added a motion blur to hard dropping and turned falling puyo into its own class so it isn't fixed to a grid.
+(~2 hours)
+
+## 6/8
+### Wen Hao Dong
+Very minor improvements.
+(~20 min)
+
+## 6/9
+### Wen Hao Dong
+Updated in-game ui to match that of the real game.
+Updated the red X to use the game's sprites.
+Updated the title screen to have the official game logo.
+(~2 hours)
+
+## 6/10
+### Wen Hao Dong
+Added a skin selection screen.
+Added looping music from Puyo Puyo Tetris 2.
+Did some minor improvements and bug fixes.
+(~1.5 hours)
