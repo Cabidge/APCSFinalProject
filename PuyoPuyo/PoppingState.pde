@@ -80,9 +80,9 @@ class PoppingState extends State {
   }
   
   boolean isFullClear() {
-    for (int row = 0; row < Game.HEIGHT; row++) {
-      for (int col = 0; col < Game.WIDTH; col++) {
-        if (!game.isNoneAt(row, col)) {
+    for (int[] row : game.board) {
+      for (int puyo : row) {
+        if (puyo != Puyo.NONE) {
           return false;
         }
       }
