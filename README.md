@@ -11,9 +11,9 @@ How To Run:
 ---
 1. Open any of the .pde files with Processing
 2. Download Processing's Sound library if you haven't
-  1. Sketch > Import Library... > Add Library...
-  2. Search for "Sound"
-  3. Click on Sound by The Processing Foundation and click Install
+    1. Sketch > Import Library... > Add Library...
+    2. Search for "Sound"
+    3. Click on Sound by The Processing Foundation and click Install
 3. Click the run button
 
 Brief Description:
