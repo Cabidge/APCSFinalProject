@@ -15,7 +15,9 @@ class FallingState extends State {
   FallingState(Game game, int currentChain) {
     super(game);
     this.currentChain = currentChain;
-    
+  }
+  
+  void onEnter() {
     // Initiate falling puyo lists and remove them from the game board**
     fallingPuyo = new ArrayDeque<PuyoColumn>();
     for (int col = 0; col < Game.WIDTH; col++) {
