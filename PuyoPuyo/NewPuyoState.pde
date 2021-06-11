@@ -27,9 +27,9 @@ class NewPuyoState extends State {
   float bufferTimer;
   float stallHeight;
   int stallCount;
-   //<>// //<>// //<>// //<>//
+   //<>//
   NewPuyoState(Game game) {
-    super(game); //<>// //<>// //<>// //<>//
+    super(game); //<>//
     
     pivotX = 2;
     pivotY = 1;

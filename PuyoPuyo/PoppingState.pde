@@ -3,7 +3,8 @@ class PoppingState extends State {
   static final float POPPING_TIME = 0.3;
   static final int FULL_CLEAR_SCORE = 5000;
   
-  List<List<int[]>> poppedGroups;
+  List<Animation> poppingAnimations;
+  int groupsPopped;
   int totalPuyoPopped;
   
   int currentChain;
@@ -16,7 +17,7 @@ class PoppingState extends State {
   PoppingState(Game game, int currentChain) {
     super(game);
     this.currentChain = currentChain + 1;
-    poppedGroups = new ArrayList<List<int[]>>();
+    poppingAnimations = new ArrayList<Animation>();
   }
   
   void onEnter() {
@@ -28,7 +29,7 @@ class PoppingState extends State {
       }
     }
     
-    if (poppedGroups.size() > 0) {
+    if (groupsPopped > 0) {
       afterPop = game.boardImage();
       
       Animation chainAnimation = new FadingText(currentChain + "-chain!")
@@ -46,6 +47,14 @@ class PoppingState extends State {
   
   void onUpdate(float delta) {
     if (timeElapsed >= POPPING_TIME) {
+      game.changeState(new FallingState(game, currentChain));
+    } else {
+      timeElapsed += delta;
+    }
+  }
+  
+  void onExit() {
+    if (totalPuyoPopped > 0) {
       if (isFullClear()) {
         Animation fullClearAnim = new FadingText("Full Clear!")
           .withOrigin(Game.BOARD_X + Game.BOARD_WIDTH/2,
@@ -57,17 +66,17 @@ class PoppingState extends State {
         game.addScore(FULL_CLEAR_SCORE);
       }
       
-      game.changeState(new FallingState(game, currentChain));
-      int rawScore = calculateScore(totalPuyoPopped, currentChain, poppedGroups.size());
+      int rawScore = calculateScore(totalPuyoPopped, currentChain, groupsPopped);
       game.addScore(game.getLevel() * rawScore);
-      game.addGroupsPopped(poppedGroups.size());
+      game.addGroupsPopped(groupsPopped);
       if (game.timeActive) {
         game.timeLeft += rawScore / 50.0;
       }
-      return;
+      
+      for (Animation a : poppingAnimations) {
+        game.addAnimation(a);
+      }
     }
-    
-    timeElapsed += delta;
   }
   
   boolean isFullClear() {
@@ -176,8 +185,11 @@ class PoppingState extends State {
       }
       return false;
     } else {
+      for (int[] pos : group) {
+        poppingAnimations.add(new PoppingAnimation(pos[1], pos[0], pType));
+      }
       totalPuyoPopped += group.size();
-      poppedGroups.add(group);
+      groupsPopped++;
       return true;
     }
   }
@@ -187,5 +199,36 @@ class PoppingState extends State {
     frontier.add(pos);
     group.add(pos);
     game.board[y][x] = Puyo.NONE;
+  }
+  
+  class PoppingAnimation extends Animation {
+    PImage[] frames;
+    int row;
+    int col;
+    PoppingAnimation(int row, int col, int type) {
+      super(0.2);
+      this.row = row;
+      this.col = col;
+      frames = new PImage[4];
+      frames[0] = puyoSprites[12 + ((type-1) % 2)][((type-1) / 2) * 2];
+      frames[1] = puyoSprites[11][type-1];
+      frames[2] = puyoSprites[10][4+type*2];
+      frames[3] = puyoSprites[10][5+type*2];
+    }
+    
+    void display() {
+      pushMatrix();
+      translate(Game.BOARD_X + game.relativeX(col+0.5),
+                Game.BOARD_Y + game.relativeY(row+0.5));
+      scale(1+0.3*pow(timeElapsed(),3.5));
+      imageMode(CENTER);
+      image(currentFrame(),0,0);
+      imageMode(CORNER);
+      popMatrix();
+    }
+    
+    PImage currentFrame() {
+      return frames[max(0, 3-floor(timeRemaining() / 0.03))];
+    }
   }
 }
