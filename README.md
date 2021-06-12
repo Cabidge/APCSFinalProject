@@ -83,6 +83,8 @@ Added sound effects and starting adding sprites from the actual game.
 Added some animations and minor visual updates.
 Implemented ledge climbing mechanic.
 (~2.5 hours)
+### Tristan Pragnell
+Made some audio additions and improvements
 
 ## 6/7
 ### Wen Hao Dong
@@ -108,3 +110,6 @@ Added a skin selection screen.
 Added looping music from Puyo Puyo Tetris 2.
 Did some minor improvements and bug fixes.
 (~1.5 hours)
+
+### Tristan Pragnell
+Minor changes to control panel
